@@ -1,5 +1,5 @@
 import React from "react";
-import "./styles.css";
+import "./login.css";
 
 export class Login extends React.Component {
   state = {
@@ -11,21 +11,23 @@ export class Login extends React.Component {
     return (
       <div className="container">
         <h1>Login</h1>
-        <label htmlFor="userName">Username</label>
+        <label className="my-label" htmlFor="userName"></label>
         <input
           className="form-login"
           type="text"
           name="username"
           id="email"
+          placeholder="Username"
+          align="center"
           onChange={(myEvent) => this.setState({ username: myEvent.target.value })}
         />
-        <label htmlFor="password">Password</label>
+        <label className="my-label" htmlFor="password"></label>
         <input
           className="form-login"
           type="password"
           name="password"
           id="password"
-          value={this.state.password}
+          placeholder="Password"
           onChange={(myEvent) => this.setState({ password: myEvent.target.value })}
         />
         {/* add error checking to this.state */}
@@ -33,7 +35,7 @@ export class Login extends React.Component {
           className="login-button"
           onClick={console.log('attempted login ', this.state.username)}
         >
-          Login
+          Submit
         </button>
       </div>
     );

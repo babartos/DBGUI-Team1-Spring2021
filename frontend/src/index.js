@@ -1,5 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import 'bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 import { Login } from "./pages/login";
 

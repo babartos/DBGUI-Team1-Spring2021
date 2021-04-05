@@ -1,5 +1,4 @@
 import React from "react";
-import "./login.css";
 
 export class Login extends React.Component {
   state = {
@@ -15,8 +14,13 @@ export class Login extends React.Component {
     if(this.state.username === "") {
       alert('please enter a username');
     }
-    if(this.state.password === "") {
+    else if(this.state.password === "") {
       alert('please enter a pasword');
+    }
+    else {
+      console.log(this.state.username);
+      console.log(this.state.password);
+      alert('login');
     }
   }
 

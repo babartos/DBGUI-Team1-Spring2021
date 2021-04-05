@@ -26,7 +26,7 @@ export class Login extends React.Component {
 
   render() {
     return (
-      <form className="border container h-100 form-group d-block p-6 m-4" >
+      <form className="container h-100 form-group d-block p-6 m-4" >
         <div className="form-group-lg justify-content-center bg-gradient-light">
           <header className="display-3">Login</header> <br></br>
           <div id="username">

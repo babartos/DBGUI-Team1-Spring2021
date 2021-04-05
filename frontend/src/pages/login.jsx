@@ -1,4 +1,5 @@
 import React from "react";
+import { Link, Redirect } from 'react-router-dom';
 
 export class Login extends React.Component {
   state = {
@@ -26,13 +27,14 @@ export class Login extends React.Component {
 
   render() {
     return (
-      <form className="container h-100 form-group d-block p-6 m-4" >
+      <form className="border container h-100 form-group d-block p-6 m-4" >
         <div className="form-group-lg justify-content-center bg-gradient-light">
-          <header className="display-3">Login</header> <br></br>
+          <header className="display-3 pb-2">Login</header>
+          <p className="mt-1">Don't have an account? <Link to='/signup'>Signup</Link></p> 
           <div id="username">
             <label htmlFor="userName"></label>
             <input
-              className="text-center rounded input-lg h-3 col-8 m-3" 
+              className="text-center rounded input-lg h-3 col-8 ml-3 mb-3" 
               type="text"
               name="username"
               id="myUserName"

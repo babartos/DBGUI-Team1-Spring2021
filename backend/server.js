@@ -21,7 +21,7 @@ const app = express();
 const logger = log({ console: true, file: false, label: config.name });
 
 // specify middleware to use
-app.use(bodyParser.json());
+app.use(bodyParser.json())
 app.use(cors({
   origin: '*'
 }));
@@ -42,52 +42,5 @@ app.listen(config.port, config.host, (e) => {
 
 
 
-// LOGIN AND REGISTER (Alfred)
-app.post('/registerUser', (req, res) => {
-  connection.query(
-    'INSERT INTO Users (Username, Password) VALUES (?, ?)',
-    [
-      req.body.Username,
-      req.body.Password
-    ],
-    function (err, rows, fields) {
-      if (err) {
-        logger.error('Error while executing Query')
-        res.status(400).json({
-          data: [],
-          error: 'MySQL error',
-        });
-      }
-      else {
-        console.log('check');
-        res.status(200).json({ data: rows })
-      }
-    }
-  )
-})
 
-app.post('/loginUser', (req, res) => {
-  connection.query(
-    'SELECT EXISTS(SELECT * FROM Users WHERE Username = ? AND Password = ?), (SELECT UserID AS result FROM Users WHERE Username = ? AND Password = ?) AS result',
-    [
-      req.body.Username,
-      req.body.Password,
-      req.body.Username,
-      req.body.Password,
-    ],
-    function (err, rows, fields) {
-      if (err) {
-        logger.error('Error while executing Query');
-        res.status(400).json({
-          data: [],
-          error: 'MySQL error',
-        });
-      } else if (!rows[0].result) {
-        res.send('false');
-      } else {
-        res.status(200).send(rows[0].result.toString());
-      }
-    }
-  );
-});
 

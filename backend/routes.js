@@ -168,8 +168,10 @@ module.exports = function routes(app, logger) {
               logger.error("Problem logging in user: \n", err);
               res.status(400).send('Problem logging in user');
             }
-            else {
-              res.status(200).send(`Logged in ${req.body.userName}!`);
+            else if (!rows[0].result) {
+              res.send('false');
+            } else {
+              res.status(200).send(rows[0].result.toString());
             }
           });
       }

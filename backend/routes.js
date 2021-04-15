@@ -274,7 +274,45 @@ module.exports = function routes(app, logger) {
   });
 
   // ===============================================================================================
-
+  //Jonas Moros
+  app.get('/projects/:userID', (req, res) => {
+    pool.getConnection(function (err, connection) {
+      if (err) {
+        logger.error('Problem obtaining MySQL connection', err)
+        res.status(400).send('Problem obtaining MySQL connection');
+      }
+      else {
+        connection.query('UPDATE user SET userName = ?, password = ?, type = ?, firstName = ?, lastName = ?, email = ?, contactInfo = ?, aboutMe =? WHERE userID = ?',
+          [
+            req.body.userName,
+            req.body.password,
+            req.body.type,
+            req.body.firstName,
+            req.body.lastName,
+            req.body.email,
+            req.body.contactInfo,
+            req.body.aboutMe,
+            req.params.userID
+          ],
+          function (err, rows, fields) {
+            connection.release();
+            console.log(req.params);
+            if (err) {
+              logger.error("Error while fetching users: \n", err);
+              res.status(400).json({
+                "data": [],
+                "error": "Error obtaining values"
+              })
+            }
+            else {
+              res.status(200).json({
+                "data": rows
+              });
+            }
+          });
+      }
+    });
+  });
 
 
 

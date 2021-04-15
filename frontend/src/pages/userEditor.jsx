@@ -6,9 +6,14 @@ export class userEditor extends React.Component {
     userRepository = new UserRepository();
 
     state = {
-        name: '',
-        email: '',
-        isEmployee: false,
+        id:'',
+        userName:'',
+        password:'',
+        email:'',
+        firstName: '',
+        lastName: '',
+        aboutMe: '',
+        type: ''
     };
 
 
@@ -34,12 +39,42 @@ export class userEditor extends React.Component {
         <form className="container">
                 <h1>User Editor</h1>
                 <div className="form-group">
-                    <label htmlFor="name">Name</label>
+                    <label htmlFor="first name">First Name</label>
                     <input type="text"
-                        id="name"
-                        name="name"
-                        value={this.state.name}
+                        id="firstName"
+                        name="firstName"
+                        value={this.state.firstName}
                         onChange={ event => this.setState({ name: event.target.value }) }
+                        className="form-control" />
+                </div>
+
+                <div className="form-group">
+                    <label htmlFor="lastName">Last Name</label>
+                    <input type="text"
+                        id="lastName"
+                        name="lastName"
+                        value={this.state.firstName}
+                        onChange={ event => this.setState({ name: event.target.value }) }
+                        className="form-control" />
+                </div>
+
+                <div className="form-group">
+                    <label htmlFor="userName">Username</label>
+                    <input type="text"
+                        id="userName"
+                        name="userName"
+                        value={this.state.id}
+                        onChange={ event => this.setState({ id: event.target.value }) }
+                        className="form-control" />
+                </div>
+
+                <div className="form-group">
+                    <label htmlFor="password">Password</label>
+                    <input type="text"
+                        id="password"
+                        name="passwod"
+                        value={this.state.password}
+                        onChange={ event => this.setState({ id: event.target.value }) }
                         className="form-control" />
                 </div>
 
@@ -54,15 +89,33 @@ export class userEditor extends React.Component {
                 </div>
 
                 <div className="form-group">
-                    <label htmlFor="isEmployee">
-                        <input type="checkbox"
-                            id="isEmployee"
-                            name="isEmployee"
-                            checked={this.state.isEmployee}
-                            onChange={ event => this.setState({ isEmployee: event.target.checked }) }
-                            />
-                        Is Employee
-                    </label>
+                    <label htmlFor="id">ID</label>
+                    <input type="text"
+                        id="idNumber"
+                        name="id"
+                        value={this.state.id}
+                        onChange={ event => this.setState({ id: event.target.value }) }
+                        className="form-control" />
+                </div>
+
+                <div className="form-group">
+                    <label htmlFor="type">Type</label>
+                    <input type="text"
+                        id="type"
+                        name="type"
+                        value={this.state.type}
+                        onChange={ event => this.setState({ id: event.target.value }) }
+                        className="form-control" />
+                </div>
+
+                <div className="form-group">
+                    <label htmlFor="aboutMe">About Me</label>
+                    <input type="text"
+                        id="aboutMe"
+                        name="aboutMe"
+                        value={this.state.aboutMe}
+                        onChange={ event => this.setState({ id: event.target.value }) }
+                        className="form-control" />
                 </div>
 
                 <div>

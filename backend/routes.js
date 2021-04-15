@@ -273,6 +273,39 @@ module.exports = function routes(app, logger) {
     });
   });
 
+  app.delete('/users/:userID', (req, res) => {
+    pool.getConnection(function (err, connection) {
+      if (err) {
+        logger.error('Problem obtaining MySQL connection', err)
+        res.status(400).send('Problem obtaining MySQL connection');
+      }
+      else {
+        connection.query('DELETE FROM user WHERE userID = ? AND userName = ? AND password = ?',
+          [
+            req.params.userID,
+            req.body.userName,
+            req.body.password
+          ],
+          function (err, rows, fields) {
+            connection.release();
+            console.log(req.params);
+            if (err) {
+              logger.error("Error while fetching users: \n", err);
+              res.status(400).json({
+                "data": [],
+                "error": "Error obtaining values"
+              })
+            }
+            else {
+              res.status(200).json({
+                "data": rows
+              });
+            }
+          });
+      }
+    });
+  });
+
   // ===============================================================================================
 
 

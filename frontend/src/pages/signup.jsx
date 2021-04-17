@@ -7,31 +7,35 @@ export class Signup extends React.Component {
     accountTypes = ['Average Joe','Professional','Admin'];
 
     state = {
-      username: "",
+      userName: "",
       password: "",
       email: "",
-      accountType: "",
+      type: "",
       firstName: "",
-      lastName: ""
+      lastName: "",
+      aboutMe: "",
     };
 
-    handleSignup() {
+    handleSignup = (event) => {
+        event.preventDefault();
         console.log(this.state);
-        let error = this.errorCheck();
+        alert("break");
+        //let error = this.errorCheck();
+        let error = false;
         if(! error) {
             this.accountRepo.registerAccount(this.state).then(data => {
-                console.log("registration successful");
-                alert("registration successful");
+                console.log(data);
               })
               .catch( e => {
                 console.log(e);
                 alert("Invalid data");
               });
         }
+
     }
 
     errorCheck() {
-        if (this.state.username == "" || this.state.password == "" || this.state.email == "" || this.state.accountType == ""
+        if (this.state.ujserName == "" || this.state.password == "" || this.state.email == "" || this.state.accountType == ""
         || this.state.firstName == "" || this.state.lastName =="") { return true;}
         else {
             return false;
@@ -61,7 +65,7 @@ export class Signup extends React.Component {
             <div className="form-group row">
                 <label htmlFor="inputUsername3" className="col-sm-2 col-form-label">Username</label>
                 <div className="col-sm-10">
-                    <input type="username" className="form-control" id="inputUsername3" placeholder="Username" onChange={(myEvent) => this.setState({ username: myEvent.target.value })}/>
+                    <input type="username" className="form-control" id="inputUsername3" placeholder="Username" onChange={(myEvent) => this.setState({ userName: myEvent.target.value })}/>
                 </div>
             </div>
             <div className="form-group row">
@@ -79,7 +83,7 @@ export class Signup extends React.Component {
             <div className="form-group row">
                 <label htmlFor="inputAboutme3" className="col-sm-2 col-form-label">About me description</label>
                 <div className="col-sm-10">
-                <textarea rows="6" type="aboutme" className="form-control" id="inputaboutme3" placeholder="About Me" onChange={(myEvent) => this.setState({ email: myEvent.target.value })}/>
+                <textarea rows="6" type="aboutme" className="form-control" id="inputaboutme3" placeholder="About Me" onChange={(myEvent) => this.setState({aboutMe: myEvent.target.value })}/>
                 </div>
             </div>
             <div className="form-group row">
@@ -88,8 +92,8 @@ export class Signup extends React.Component {
                     <select
                         id="accountType"
                         className="form-control"
-                        value={this.state.accountType}
-                        onChange={e => this.setState({ accountType: (e.target.value)})}>
+                        value={this.state.type}
+                        onChange={e => this.setState({ type: (e.target.value)})}>
                         <option></option>
                         {
                             this.accountTypes.map((x, i) => <option key={ i }>{ x }</option>)
@@ -100,7 +104,7 @@ export class Signup extends React.Component {
             </div>
             <div className="form-group row">
                 <div className="col-sm-10">
-                <button type="submit" className="btn btn-primary" onClick={() => this.handleSignup()}>Create account</button>
+                <button type="submit" className="btn btn-primary" onClick={(event) => this.handleSignup(event)}>Create account</button>
                 </div>
             </div>
         </form>

@@ -10,17 +10,17 @@ export class Login extends React.Component {
     password: "",
   };
 
-  handleLogin() {
+  handleLogin = (event) => {
+    event.preventDefault();
     let error = this.errorChecking();
     console.log(this.state);
     if(!error) { //if no error
       this.accountRepo.login(this.state.username, this.state.password).then(data => {
-        console.log("successful login");
-        alert("login successful");
+        console.log(data);
       })
       .catch( e => {
         console.log(e);
-        alert("Invalid username and password combination");
+        alert("Error");
       });
     }
   }
@@ -67,7 +67,7 @@ export class Login extends React.Component {
           />
           <button
             className="btn btn-primary btn-rounded d-block h-3 col-8 ml-3 mt-3 col-4"
-            onClick={ () => this.handleLogin()}
+            onClick={ (event) => this.handleLogin(event)}
           >
             Submit
           </button>

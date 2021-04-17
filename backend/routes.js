@@ -170,8 +170,7 @@ module.exports = function routes(app, logger) {
             }
             else if (!rows[0].result) {
               res.send('false');
-            } 
-            else {
+            } else {
               res.status(200).send(rows[0].result.toString());
             }
           });
@@ -179,17 +178,14 @@ module.exports = function routes(app, logger) {
     });
   });
 
- 
+
   app.get('/users', (req, res) => {
-    // obtain a connection from our pool of connections
     pool.getConnection(function (err, connection) {
       if (err) {
-        // if there is an issue obtaining a connection, release the connection instance and log the error
         logger.error('Problem obtaining MySQL connection', err)
         res.status(400).send('Problem obtaining MySQL connection');
       }
       else {
-        // if there is no issue obtaining a connection, execute query and release connection
         connection.query('SELECT * FROM user', function (err, rows, fields) {
           connection.release();
           if (err) {
@@ -209,6 +205,106 @@ module.exports = function routes(app, logger) {
     });
   });
 
+  app.get('/users/:userID', (req, res) => {
+    pool.getConnection(function (err, connection) {
+      if (err) {
+        logger.error('Problem obtaining MySQL connection', err)
+        res.status(400).send('Problem obtaining MySQL connection');
+      }
+      else {
+        connection.query('SELECT * FROM user WHERE userID = ?',
+          [req.params.userID],
+          function (err, rows, fields) {
+            connection.release();
+            console.log(req.params);
+            if (err) {
+              logger.error("Error while fetching users: \n", err);
+              res.status(400).json({
+                "data": [],
+                "error": "Error obtaining values"
+              })
+            }
+            else {
+              res.status(200).json({
+                "data": rows
+              });
+            }
+          });
+      }
+    });
+  });
+
+  app.put('/users/:userID', (req, res) => {
+    pool.getConnection(function (err, connection) {
+      if (err) {
+        logger.error('Problem obtaining MySQL connection', err)
+        res.status(400).send('Problem obtaining MySQL connection');
+      }
+      else {
+        connection.query('UPDATE user SET userName = ?, password = ?, type = ?, firstName = ?, lastName = ?, email = ?, contactInfo = ?, aboutMe =? WHERE userID = ?',
+          [
+            req.body.userName,
+            req.body.password,
+            req.body.type,
+            req.body.firstName,
+            req.body.lastName,
+            req.body.email,
+            req.body.contactInfo,
+            req.body.aboutMe,
+            req.params.userID
+          ],
+          function (err, rows, fields) {
+            connection.release();
+            console.log(req.params);
+            if (err) {
+              logger.error("Error while fetching users: \n", err);
+              res.status(400).json({
+                "data": [],
+                "error": "Error obtaining values"
+              })
+            }
+            else {
+              res.status(200).json({
+                "data": rows
+              });
+            }
+          });
+      }
+    });
+  });
+
+  app.delete('/users/:userID', (req, res) => {
+    pool.getConnection(function (err, connection) {
+      if (err) {
+        logger.error('Problem obtaining MySQL connection', err)
+        res.status(400).send('Problem obtaining MySQL connection');
+      }
+      else {
+        connection.query('DELETE FROM user WHERE userID = ? AND userName = ? AND password = ?',
+          [
+            req.params.userID,
+            req.body.userName,
+            req.body.password
+          ],
+          function (err, rows, fields) {
+            connection.release();
+            console.log(req.params);
+            if (err) {
+              logger.error("Error while fetching users: \n", err);
+              res.status(400).json({
+                "data": [],
+                "error": "Error obtaining values"
+              })
+            }
+            else {
+              res.status(200).json({
+                "data": rows
+              });
+            }
+          });
+      }
+    });
+  });
 
   // ===============================================================================================
 

@@ -1,27 +1,41 @@
 import React from "react";
 import { Link, Redirect } from 'react-router-dom';
+import { AccountsRepo } from "../api/accountsRepo";
 
 export class Login extends React.Component {
+  accountRepo = new AccountsRepo();
+  
   state = {
     username: "",
-    password: ""
+    password: "",
   };
 
-  handleLogin() {
-    this.errorChecking();
+  handleLogin = (event) => {
+    event.preventDefault();
+    let error = this.errorChecking();
+    console.log(this.state);
+    if(!error) { //if no error
+      this.accountRepo.login(this.state.username, this.state.password).then(data => {
+        console.log(data);
+      })
+      .catch( e => {
+        console.log(e);
+        alert("Error");
+      });
+    }
   }
 
   errorChecking() {
     if(this.state.username === "") {
       alert('please enter a username');
+      return true;
     }
     else if(this.state.password === "") {
       alert('please enter a pasword');
+      return true;
     }
     else {
-      console.log(this.state.username);
-      console.log(this.state.password);
-      alert('login');
+      return false;
     }
   }
 
@@ -51,10 +65,9 @@ export class Login extends React.Component {
             placeholder="Password"
             onChange={(myEvent) => this.setState({ password: myEvent.target.value })}
           />
-          {/* add error checking to this.state */}
           <button
             className="btn btn-primary btn-rounded d-block h-3 col-8 ml-3 mt-3 col-4"
-            onClick={ () => this.handleLogin()}
+            onClick={ (event) => this.handleLogin(event)}
           >
             Submit
           </button>

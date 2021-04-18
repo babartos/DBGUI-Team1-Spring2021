@@ -216,7 +216,7 @@ module.exports = function routes(app, logger) {
           [req.params.userID],
           function (err, rows, fields) {
             connection.release();
-            console.log(req.params);
+            console.log(req.param cs);
             if (err) {
               logger.error("Error while fetching users: \n", err);
               res.status(400).json({
@@ -282,23 +282,12 @@ module.exports = function routes(app, logger) {
         res.status(400).send('Problem obtaining MySQL connection');
       }
       else {
-        connection.query('UPDATE user SET userName = ?, password = ?, type = ?, firstName = ?, lastName = ?, email = ?, contactInfo = ?, aboutMe =? WHERE userID = ?',
-          [
-            req.body.userName,
-            req.body.password,
-            req.body.type,
-            req.body.firstName,
-            req.body.lastName,
-            req.body.email,
-            req.body.contactInfo,
-            req.body.aboutMe,
-            req.params.userID
-          ],
+        connection.query('SELECT * FROM project WHERE userID = ?',[req.params.userID],
           function (err, rows, fields) {
             connection.release();
             console.log(req.params);
             if (err) {
-              logger.error("Error while fetching users: \n", err);
+              logger.error("Erros : \n", err);
               res.status(400).json({
                 "data": [],
                 "error": "Error obtaining values"

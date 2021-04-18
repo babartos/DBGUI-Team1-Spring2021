@@ -216,7 +216,7 @@ module.exports = function routes(app, logger) {
           [req.params.userID],
           function (err, rows, fields) {
             connection.release();
-            console.log(req.params);
+            console.log(req.param cs);
             if (err) {
               logger.error("Error while fetching users: \n", err);
               res.status(400).json({
@@ -307,7 +307,174 @@ module.exports = function routes(app, logger) {
   });
 
   // ===============================================================================================
+  //Jonas Moros
+  app.get('/projects/:userID', (req, res) => {
+    pool.getConnection(function (err, connection) {
+      if (err) {
+        logger.error('Problem obtaining MySQL connection', err)
+        res.status(400).send('Problem obtaining MySQL connection');
+      }
+      else {
+        connection.query('SELECT * FROM project WHERE userID = ?',[req.params.userID],
+          function (err, rows, fields) {
+            connection.release();
+            console.log(req.params);
+            if (err) {
+              logger.error("Erros : \n", err);
+              res.status(400).json({
+                "data": [],
+                "error": "Error obtaining values"
+              })
+            }
+            else {
+              res.status(200).json({
+                "data": rows
+              });
+            }
+          });
+      }
+    });
+  });
+  
 
+  app.delete('/projects/:projectID', (req, res) => {
+    pool.getConnection(function (err, connection) {
+      if (err) {
+        logger.error('Problem obtaining MySQL connection', err)
+        res.status(400).send('Problem obtaining MySQL connection');
+      }
+      else {
+        connection.query('DELETE FROM project where projectID = ?',[req.params.projectID],
+          function (err, rows, fields) {
+            connection.release();
+            console.log(req.params);
+            if (err) {
+              logger.error("Erros : \n", err);
+              res.status(400).json({
+                "data": [],
+                "error": "Error obtaining values"
+              })
+            }
+            else {
+              res.status(200).json({
+                "data": rows
+              });
+            }
+          });
+      }
+    });
+  });
+
+  app.put('/project/edit', (req, res) => {
+    pool.getConnection(function (err, connection) {
+      if (err) {
+        logger.error('Problem obtaining MySQL connection', err)
+        res.status(400).send('Problem obtaining MySQL connection');
+      }
+      else {
+        connection.query('UPDATE project SET userID=?, projectName = ?, budget=?, description=?,category=?,photo=?,active=? WHERE projectID=?',
+        [
+          req.body.userID,
+          req.body.projectName,
+          req.body.budget,
+          req.body.description,
+          req.body.category,
+          req.body.photo,
+          req.body.active,
+          req.body.projectID,
+          
+        
+        
+        ],
+          function (err, rows, fields) {
+            connection.release();
+            console.log(req.params);
+            if (err) {
+              logger.error("Erros : \n", err);
+              res.status(400).json({
+                "data": [],
+                "error": "Error obtaining values"
+              })
+            }
+            else {
+              res.status(200).json({
+                "data": rows
+              });
+            }
+          });
+      }
+    });
+  });
+  app.put('/project/changeActivate', (req, res) => {
+    pool.getConnection(function (err, connection) {
+      if (err) {
+        logger.error('Problem obtaining MySQL connection', err)
+        res.status(400).send('Problem obtaining MySQL connection');
+      }
+      else {
+        connection.query('UPDATE project SET active=? where userID=? AND postID=?',
+        [
+          req.body.active,
+          req.body.userID,
+          req.body.postID
+        ],
+          function (err, rows, fields) {
+            connection.release();
+            console.log(req.params);
+            if (err) {
+              logger.error("Erros : \n", err);
+              res.status(400).json({
+                "data": [],
+                "error": "Error obtaining values"
+              })
+            }
+            else {
+              res.status(200).json({
+                "data": rows
+              });
+            }
+          });
+      }
+    });
+  });
+
+  app.post('/project/add', (req, res) => {
+    pool.getConnection(function (err, connection) {
+      if (err) {
+        logger.error('Problem obtaining MySQL connection', err)
+        res.status(400).send('Problem obtaining MySQL connection');
+      }
+      else {
+        connection.query('insert into project (projectID,userID,projectName,budget,description,category,photo,active) values (?,?,?,?,?,?,?,?,);',
+        [
+          req.body.projectID,
+          req.body.userID,
+          req.body.projectName,
+          req.body.budget,
+          req.body.description,
+          req.body.category,
+          req.body.photo,
+          req.body.active
+        ],
+          function (err, rows, fields) {
+            connection.release();
+            console.log(req.params);
+            if (err) {
+              logger.error("Erros : \n", err);
+              res.status(400).json({
+                "data": [],
+                "error": "Error obtaining values"
+              })
+            }
+            else {
+              res.status(200).json({
+                "data": rows
+              });
+            }
+          });
+      }
+    });
+  });
 
 
 

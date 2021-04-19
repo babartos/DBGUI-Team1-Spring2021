@@ -3,9 +3,7 @@ import ReactDOM from "react-dom";
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-import App from "./App";
-import Home from "./pages/home"
-import { Login } from "./pages/login";
+import { App } from "./pages/app";
 
 const rootElement = document.getElementById("root");
-ReactDOM.render(<Home />, rootElement)
+ReactDOM.render(<App />, rootElement)

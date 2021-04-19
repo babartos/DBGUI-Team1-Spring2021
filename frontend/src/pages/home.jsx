@@ -1,21 +1,16 @@
 import React from "react";
-import { Login } from "./login";
-import { Signup } from "./signup";
-import { BrowserRouter as Router, Switch, Route} from 'react-router-dom';
-import NavHeader from './navheader'
 
-function Home() {
-    return(
+
+export class Home extends React.Component {
+    state = {
+      loggedIn: true
+    }  
+    render() {
+      return (
         <div>
-            <Router>
-                <NavHeader/>
-                <Switch>
-                    <Route path="/login" component={Login}/>
-                    <Route path="/signup" component={Signup}/>
-                </Switch>
-            </Router>
+            <h2>My construction</h2>
+            <p>A tool for average Joe's to be able to post DIY styled construction projects and for professionals to provide insight on those projects. These professionals would be able to provide ideas and tools they think are best suited for the project at mind.</p>
         </div>
-    )
-}
-
-export default Home;
+      );
+    }  
+  }

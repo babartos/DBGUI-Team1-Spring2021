@@ -291,7 +291,7 @@ module.exports = function routes(app, logger) {
             connection.release();
             console.log(req.params);
             if (err) {
-              logger.error("Error while fetching users: \n", err);
+              logger.error("Errors: \n", err);
               res.status(400).json({
                 "data": [],
                 "error": "Error obtaining values"
@@ -317,9 +317,8 @@ module.exports = function routes(app, logger) {
         connection.query('SELECT * FROM post',
           function (err, rows, fields) {
             connection.release();
-            console.log(req.params);
             if (err) {
-              logger.error("Error while fetching users: \n", err);
+              logger.error("Errors: \n", err);
               res.status(400).json({
                 "data": [],
                 "error": "Error obtaining values"
@@ -335,7 +334,7 @@ module.exports = function routes(app, logger) {
     });
   });
 
-  app.get('/postU/:userID', (req, res) => {
+  app.get('/postbyUser/:userID', (req, res) => {
     pool.getConnection(function (err, connection) {
       if (err) {
         logger.error('Problem obtaining MySQL connection', err)
@@ -346,9 +345,8 @@ module.exports = function routes(app, logger) {
           [req.params.userID],
           function (err, rows, fields) {
             connection.release();
-            console.log(req.params);
             if (err) {
-              logger.error("Error while fetching users: \n", err);
+              logger.error("Errors: \n", err);
               res.status(400).json({
                 "data": [],
                 "error": "Error obtaining values"
@@ -364,34 +362,159 @@ module.exports = function routes(app, logger) {
     });
   });
 
-  app.put('/post/like/:postID', (req, res) => {
+  app.get('/comment/:postID', (req, res) => {
     pool.getConnection(function (err, connection) {
       if (err) {
         logger.error('Problem obtaining MySQL connection', err)
         res.status(400).send('Problem obtaining MySQL connection');
       }
       else {
-        connection.query('UPDATE rating SET likes = likes + 1 WHERE postID = ?',
+        connection.query('SELECT * FROM postComment WHERE postID = ?',
           [req.params.postID],
           function (err, rows, fields) {
             connection.release();
-            console.log(req.params);
             if (err) {
-              logger.error("Error while fetching users: \n", err);
+              logger.error("Errors: \n", err);
               res.status(400).json({
                 "data": [],
                 "error": "Error obtaining values"
               })
             }
             else {
-              res.status(200).send('Liked the post');
+              res.status(200).json({
+                "data": rows
+              });
             }
           });
       }
     });
   });
- 
 
+
+  app.post('/post/add', (req, res) => {
+    pool.getConnection(function (err, connection) {
+      if (err) {
+        logger.error('Problem obtaining MySQL connection', err)
+        res.status(400).send('Problem obtaining MySQL connection');
+      }
+      else {
+        connection.query('INSERT INTO post(censored, content, createdAt) VALUES(0, ?, current_timestamp())',
+          [
+            req.body.content  
+          ],
+          function (err, rows, fields) {
+            connection.release();
+            if (err) {
+              logger.error("Errors: \n", err);
+              res.status(400).json({
+                "data": [],
+                "error": "Error obtaining values"
+              })
+            }
+            else if(!rows[0].result){
+              res.send('false');
+            }
+            else {
+              res.status(200).send(rows[0].result.toString());
+            }
+          });
+      }
+    });
+  });
+
+  app.post('/comment', (req, res) => {
+    pool.getConnection(function (err, connection) {
+      if (err) {
+        logger.error('Problem obtaining MySQL connection', err)
+        res.status(400).send('Problem obtaining MySQL connection');
+      }
+      else {
+        connection.query('INSERT INTO postComment(postID, userID, content, liked, created_at) VALUES(?, ?, ?, 0, current_timestamp())',
+          [
+            req.body.postID,
+            req.body.userID,
+            req.body.content
+          ],
+          function (err, rows, fields) {
+            connection.release();
+            if (err) {
+              logger.error("Errors: \n", err);
+              res.status(400).json({
+                "data": [],
+                "error": "Error obtaining values"
+              })
+            }
+            else if(!rows[0].result){
+              res.send('false');
+            }
+            else {
+              res.status(200).send(rows[0].result.toString());
+            }
+          });
+      }
+    });
+  });
+
+  app.get('/reply/:commmentID', (req, res) => {
+    pool.getConnection(function (err, connection) {
+      if (err) {
+        logger.error('Problem obtaining MySQL connection', err)
+        res.status(400).send('Problem obtaining MySQL connection');
+      }
+      else {
+        connection.query('SELECT * FROM commentReply WHERE commentID = ?',
+          [req.params.commentID],
+          function (err, rows, fields) {
+            connection.release();
+            if (err) {
+              logger.error("Errors: \n", err);
+              res.status(400).json({
+                "data": [],
+                "error": "Error obtaining values"
+              })
+            }
+            else {
+              res.status(200).json({
+                "data": rows
+              });
+            }
+          });
+      }
+    });
+  });
+
+  app.post('/reply', (req, res) => {
+    pool.getConnection(function (err, connection) {
+      if (err) {
+        logger.error('Problem obtaining MySQL connection', err)
+        res.status(400).send('Problem obtaining MySQL connection');
+      }
+      else {
+        connection.query('INSERT INTO commentReply(commentID, userID, content, liked, createdAt) VALUES(?, ?, ?, 0, current_timestamp())',
+          [
+            req.body.commentID,
+            req.body.userID,
+            req.body.content
+          ],
+          function (err, rows, fields) {
+            connection.release();
+            if (err) {
+              logger.error("Errors: \n", err);
+              res.status(400).json({
+                "data": [],
+                "error": "Error obtaining values"
+              })
+            }
+            else if(!rows[0].result){
+              res.send('false');
+            }
+            else {
+              res.status(200).send(rows[0].result.toString());
+            }
+          });
+      }
+    });
+  });
 
 
 }

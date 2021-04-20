@@ -14,17 +14,18 @@ export class Signup extends React.Component {
       firstName: "",
       lastName: "",
       aboutMe: "",
+      successSignUp: false
     };
 
     handleSignup = (event) => {
         event.preventDefault();
         console.log(this.state);
-        alert("break");
         //let error = this.errorCheck();
         let error = false;
         if(! error) {
             this.accountRepo.registerAccount(this.state).then(data => {
                 console.log(data);
+                this.setState({successSignUp: true});
               })
               .catch( e => {
                 console.log(e);
@@ -107,6 +108,7 @@ export class Signup extends React.Component {
                 <button type="submit" className="btn btn-primary" onClick={(event) => this.handleSignup(event)}>Create account</button>
                 </div>
             </div>
+            {this.state.successSignUp && <Redirect to="/login"/>}
         </form>
         );
     }

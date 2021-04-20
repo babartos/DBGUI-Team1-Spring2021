@@ -2,22 +2,33 @@ import React from "react";
 import { Login } from "./login";
 import { Signup } from "./signup";
 import { Home } from "./home";
+import { Mail } from "./mail";
 import { BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import NavHeader from './navheader'
 
 export class App extends React.Component {
   state = {
-    loggedIn: true
-  }  
+    loggedIn: false
+  }
+
+  logger = (id) => {
+    this.setState({loggedIn: true})
+  }
+
+  logoutFunction = () => {
+    this.setState({loggedIn: false})
+  }
+
   render() {
     return (
       <div>
       <Router>
-          <NavHeader status={this.state.loggedIn}/>
+          <NavHeader status={this.state.loggedIn} logout={this.logoutFunction}/>
           <Switch>
-              <Route path="/login" component={Login}/>
+              <Route path="/login" render={() => <Login loginFunction={this.logger}/>}/>
               <Route path="/signup" component={Signup}/>
               <Route path="/account" component={Home}/>
+              <Route path="/mail" component={Mail}/>
               <Route path="/" component={Home}/>
           </Switch>
       </Router>

@@ -2,21 +2,28 @@ import React from "react";
 import { Link, Redirect } from 'react-router-dom';
 import { AccountsRepo } from "../api/accountsRepo";
 
+
 export class Login extends React.Component {
   accountRepo = new AccountsRepo();
   
   state = {
     username: "",
     password: "",
+    successfulLogin: false
   };
 
   handleLogin = (event) => {
     event.preventDefault();
     let error = this.errorChecking();
-    console.log(this.state);
     if(!error) { //if no error
       this.accountRepo.login(this.state.username, this.state.password).then(data => {
-        console.log(data);
+        if(data) {
+          this.props.loginFunction(data);
+          this.setState({successfulLogin: true});
+        }
+        else {
+          alert("Incorrect Username/Password Combination");
+        }
       })
       .catch( e => {
         console.log(e);
@@ -41,7 +48,7 @@ export class Login extends React.Component {
 
   render() {
     return (
-      <form className="border container h-100 form-group d-block p-6 m-4" >
+      <form className="container form-group d-block p-6 m-4" >
         <div className="form-group-lg justify-content-center bg-gradient-light">
           <header className="display-3 pb-2">Login</header>
           <p className="mt-1">Don't have an account? <Link to='/signup'>Signup</Link></p> 
@@ -71,6 +78,7 @@ export class Login extends React.Component {
           >
             Submit
           </button>
+          {this.state.successfulLogin && <Redirect to="/"/>}
         </div>
       </form>
     );

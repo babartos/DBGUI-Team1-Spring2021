@@ -42,5 +42,31 @@ export class AccountsRepo {
         });
     }
 
+    deleteAccount(id){
+        return new Promise((resolve, reject) => {
+            axios.delete(`${this.url}/users/${id}`, this.config)
+            .then(x => resolve(x.data))
+            .catch(error => {
+                console.log("error");
+                console.log(error);
+            });
+        });
+    }
+
+    getProAccounts(){
+        return new Promise((resolve, reject) => {
+            axios.get(`${this.url}/professional`, this.config)
+            .then(x => resolve(x.data))
+            .catch(error => {
+                console.log("error");
+                console.log(error);
+            });
+        });
+    }
+
+
+
+
+
     
 }

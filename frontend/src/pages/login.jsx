@@ -48,11 +48,11 @@ export class Login extends React.Component {
 
   render() {
     return (
-      <form className="container form-group d-block p-6 m-4" >
+      <form className="container form-group d-block p-3 m-4" >
+        <header className="display-3 pb-2">Login</header>
         <div className="form-group-lg justify-content-center bg-gradient-light">
-          <header className="display-3 pb-2">Login</header>
           <p className="mt-1">Don't have an account? <Link to='/signup'>Signup</Link></p> 
-          <div id="username">
+          <div id="username" className="">
             <label htmlFor="userName"></label>
             <input
               className="text-center rounded input-lg h-3 col-8 ml-3 mb-3" 
@@ -73,7 +73,7 @@ export class Login extends React.Component {
             onChange={(myEvent) => this.setState({ password: myEvent.target.value })}
           />
           <button
-            className="btn btn-primary btn-rounded d-block h-3 col-8 ml-3 mt-3 col-4"
+            className="form-control btn btn-primary btn-rounded d-block h-3 col-8 ml-3 mt-3 col-4"
             onClick={ (event) => this.handleLogin(event)}
           >
             Submit

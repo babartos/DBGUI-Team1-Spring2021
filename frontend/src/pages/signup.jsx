@@ -45,7 +45,7 @@ export class Signup extends React.Component {
 
     render() {
         return (
-        <form className="border p-3 m-4">
+        <form className="p-3 m-4">
             <header className="display-3 pb-2">Signup</header>
             <p className="mt-1">Already have an account? <Link to='/login'>Login</Link></p> 
 

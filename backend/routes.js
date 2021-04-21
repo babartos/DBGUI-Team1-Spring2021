@@ -867,7 +867,7 @@ app.post('/message/send', (req, res) => {
             }
             else {
               res.status(200).json({
-                "data": rows
+                "data": rows[0]
               });
             }
           });
@@ -926,7 +926,7 @@ app.post('/message/send', (req, res) => {
             }
             else {
               res.status(200).json({
-                "data": rows
+                "data": rows[0]
               });
             }
           });
@@ -958,7 +958,7 @@ app.post('/message/send', (req, res) => {
             }
             else {
               res.status(200).json({
-                "data": rows
+                "data": rows[0]
               });
             }
           });
@@ -1018,7 +1018,7 @@ app.post('/message/send', (req, res) => {
             }
             else {
               res.status(200).json({
-                "data": rows
+                "data": rows[0]
               });
             }
           });

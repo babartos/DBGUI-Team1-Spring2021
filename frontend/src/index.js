@@ -3,15 +3,7 @@ import ReactDOM from "react-dom";
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-
-//import { Login } from "./pages/login";
-import { Posts } from "./pages/posts";
-import { PostList } from './pages/postList';
+import { App } from "./pages/app";
 
 const rootElement = document.getElementById("root");
-ReactDOM.render(
-    <React.StrictMode>
-      <PostList />
-    </React.StrictMode>,
-    document.getElementById('root')
-  );
+ReactDOM.render(<App />, rootElement)

@@ -34,7 +34,6 @@ export class App extends React.Component {
               <Route path="/mail" component={Mail}/>
               <Route path="/proffesionalAccounts" component={ProAccounts}/>
               <Route path="/" component={Home}/>
-              
           </Switch>
       </Router>
       </div>

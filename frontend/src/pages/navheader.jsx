@@ -8,7 +8,7 @@ function NavHeader(props) {
     
     return(
         <>
-        {console.log(props.status)}
+        {console.log("helloworld", props.status) /*Nav header created by Matt Bartos, Alex Preston and Tim Desmond helped contribute!*/}
            <div className="pos-f-t">
                 <div className="collapse" id="navbarToggleExternalContent">
                     <div className="bg-dark">

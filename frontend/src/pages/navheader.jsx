@@ -21,7 +21,7 @@ function NavHeader(props) {
                             </div>
                             <div id="projects" className="btn-group-vertical pb-4 mr-4">
                                 <Link type="button" className="h5 text-white" to="/">Projects</Link>
-                                <Link type="button" className="pt-1 text-light" to="/">My Projects</Link>
+                                <Link type="button" className="pt-1 text-light" to="/myprojects">My Projects</Link>
                                 <Link type="button" className="pt-1 text-light" to="/">All Projects</Link>
                             </div>
                             <div id="accounts" className="btn-group-vertical pb-4">

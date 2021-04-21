@@ -216,7 +216,6 @@ module.exports = function routes(app, logger) {
           [req.params.userID],
           function (err, rows, fields) {
             connection.release();
-            console.log(req.param cs);
             if (err) {
               logger.error("Error while fetching users: \n", err);
               res.status(400).json({
@@ -870,11 +869,10 @@ app.post('/message/send', (req, res) => {
                 "error": "Error obtaining values"
               })
             }
-            else if(!rows[0].result){
-              res.send('false');
-            }
             else {
-              res.status(200).send(rows[0].result.toString());
+              res.status(200).json({
+                "data": rows
+              });
             }
           });
       }
@@ -903,11 +901,10 @@ app.post('/message/send', (req, res) => {
                 "error": "Error obtaining values"
               })
             }
-            else if(!rows[0].result){
-              res.send('false');
-            }
             else {
-              res.status(200).send(rows[0].result.toString());
+              res.status(200).json({
+                "data": rows
+              });
             }
           });
       }
@@ -964,11 +961,10 @@ app.post('/message/send', (req, res) => {
                 "error": "Error obtaining values"
               })
             }
-            else if(!rows[0].result){
-              res.send('false');
-            }
             else {
-              res.status(200).send(rows[0].result.toString());
+              res.status(200).json({
+                "data": rows
+              });
             }
           });
       }

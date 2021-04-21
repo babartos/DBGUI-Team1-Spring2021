@@ -1,6 +1,8 @@
 import React from "react";
+import { Link, Redirect } from 'react-router-dom';
 
-export class Posts extends React.Component {
+
+export class PostCreator extends React.Component {
   state = {
     projectName: "",
     budget: "",

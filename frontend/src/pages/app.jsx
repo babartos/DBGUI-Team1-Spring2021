@@ -7,6 +7,7 @@ import { ProAccounts } from "./proAccounts";
 import { BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import NavHeader from './navheader'
 import { PostList } from './postList';
+import { PostCreator } from './postcreator';
 
 export class App extends React.Component {
   state = {
@@ -30,6 +31,7 @@ export class App extends React.Component {
               <Route path="/login" render={() => <Login loginFunction={this.logger}/>}/>
               <Route path="/signup" component={Signup}/>
               <Route path="/myprojects" component={PostList}/>
+              <Route path="/creatPost" component={PostCreator}/>
               <Route path="/account" component={Home}/>
               <Route path="/mail" component={Mail}/>
               <Route path="/proffesionalAccounts" component={ProAccounts}/>

@@ -1,6 +1,7 @@
 import React from "react";
 import { Project } from './models/Project';
-import { Posts } from './posts';
+import { PostCreator } from './postcreator';
+import { Link, Redirect } from 'react-router-dom';
 
 export class PostList extends React.Component {
   state = {
@@ -19,19 +20,14 @@ export class PostList extends React.Component {
     posts: "",
   };
 
-  newPost(){
-        this.state.posts = <Posts />;
-        
-  }
+ 
 
  
   render() {
     return (
       <div className="container-sm">
           <h1>My Projects:</h1>
-          <button className="btn btn-primary mb-3"
-                onClick={this.newPost}>Create new Post</button>
-                {this.state.posts}
+                <Link type="button" to="/creatPost" className="btn btn-primary mb-3">Create new Post</Link>
           {
           this.state.project.map(project =>
                         <div className="card mb-3">

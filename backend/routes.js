@@ -847,6 +847,34 @@ app.post('/message/send', (req, res) => {
     });
   });
 
+  app.get('/mailboxByUserName/:userName', (req, res) => {
+    pool.getConnection(function (err, connection) {
+      if (err) {
+        logger.error('Problem obtaining MySQL connection', err)
+        res.status(400).send('Problem obtaining MySQL connection');
+      }
+      else {
+        connection.query('SELECT mailboxID FROM mailbox INNER JOIN user ON mailbox.userID = user.userID WHERE userName = ?',
+          [req.params.userName],
+          function (err, rows, fields) {
+            connection.release();
+            if (err) {
+              logger.error("Errors: \n", err);
+              res.status(400).json({
+                "data": [],
+                "error": "Error obtaining values"
+              })
+            }
+            else {
+              res.status(200).json({
+                "data": rows
+              });
+            }
+          });
+      }
+    });
+  });
+
   app.get('/comment/:postID', (req, res) => {
     pool.getConnection(function (err, connection) {
       if (err) {

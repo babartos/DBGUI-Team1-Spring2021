@@ -792,6 +792,33 @@ app.post('/message/send', (req, res) => {
     });
   });
 
+  app.get('/projects', (req, res) => {
+    pool.getConnection(function (err, connection) {
+      if (err) {
+        logger.error('Problem obtaining MySQL connection', err)
+        res.status(400).send('Problem obtaining MySQL connection');
+      }
+      else {
+        connection.query('SELECT * FROM project',
+          function (err, rows, fields) {
+            connection.release();
+            if (err) {
+              logger.error("Errors: \n", err);
+              res.status(400).json({
+                "data": [],
+                "error": "Error obtaining values"
+              })
+            }
+            else {
+              res.status(200).json({
+                "data": rows
+              });
+            }
+          });
+      }
+    });
+  });
+
   app.get('/postbyUser/:userID', (req, res) => {
     pool.getConnection(function (err, connection) {
       if (err) {

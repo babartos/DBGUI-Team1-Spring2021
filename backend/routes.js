@@ -103,6 +103,7 @@ module.exports = function routes(app, logger) {
     });
   });
 
+  //======================================================================================================
 
   // Alfred K
   app.post('/registerUser', (req, res) => {
@@ -145,15 +146,12 @@ module.exports = function routes(app, logger) {
 
   app.post('/loginUser', (req, res) => {
 
-    // obtain a connection from our pool of connections
     pool.getConnection(function (err, connection) {
       if (err) {
-        // if there is an issue obtaining a connection, release the connection instance and log the error
         logger.error('Problem obtaining MySQL connection', err)
         res.status(400).send('Problem obtaining MySQL connection');
       }
       else {
-        // if there is no issue obtaining a connection, execute query and release connection
         connection.query('SELECT EXISTS (SELECT * FROM user WHERE userName = ? AND password = ?), (SELECT userID AS result FROM user WHERE userName = ? AND password = ?) AS result',
           [
             req.body.userName,
@@ -164,13 +162,13 @@ module.exports = function routes(app, logger) {
           function (err, rows, fields) {
             connection.release();
             if (err) {
-              // if there is an error with the query, log the error
               logger.error("Problem logging in user: \n", err);
               res.status(400).send('Problem logging in user');
             }
             else if (!rows[0].result) {
               res.send('false');
-            } else {
+            } 
+            else {
               res.status(200).send(rows[0].result.toString());
             }
           });
@@ -642,10 +640,15 @@ app.get('/professional', (req, res) => {
       res.status(400).send('Problem obtaining MySQL connection');
     }
     else {
-      connection.query('select userName,firstName,lastName,email,contactInfo,aboutMe from user',
+      connection.query('select userName,type,firstName,lastName,email,contactInfo,aboutMe from user where type="Professional"',
       [
-        req.body.likes,
-        req.body.ratingID
+        req.body.userName,
+        req.body.type,
+        req.body.firstName,
+        req.body.lastName,
+        req.body.email,
+        req.body.contactInfo,
+        req.body.aboutMe
       ],
         function (err, rows, fields) {
           connection.release();
@@ -668,16 +671,16 @@ app.get('/professional', (req, res) => {
 });
 
 
-app.get('/message/:mailboxID', (req, res) => {
+app.get('/message/:userName', (req, res) => {
   pool.getConnection(function (err, connection) {
     if (err) {
       logger.error('Problem obtaining MySQL connection', err)
       res.status(400).send('Problem obtaining MySQL connection');
     }
     else {
-      connection.query('select * from mail where mailboxID=?',
+      connection.query('select * from mail where userName = ?',
       [
-        req.params.mailboxID
+        req.params.userName
       ],
         function (err, rows, fields) {
           connection.release();
@@ -707,10 +710,9 @@ app.post('/message/send', (req, res) => {
       res.status(400).send('Problem obtaining MySQL connection');
     }
     else {
-      connection.query('INSERT INTO mail (mailID,mailboxID,senderID,content) values (?,?,?,?)',
+      connection.query('INSERT INTO mail (userName, senderID, content) values (?,?,?)',
       [
-        req.body.mailID,
-        req.body.mailboxID,
+        req.body.userName,
         req.body.senderID,
         req.body.content
       ],

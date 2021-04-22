@@ -13,12 +13,13 @@ export class Login extends React.Component {
   };
 
   handleLogin = (event) => {
-    //event.preventDefault();
+    event.preventDefault();
     let error = this.errorChecking();
     if(!error) { //if no error
       this.accountRepo.login(this.state.username, this.state.password).then(data => {
         if(data) {
-          this.props.loginFunction(data);
+          console.log(data);
+          this.props.loginFunction(data, this.state.username);
           this.setState({successfulLogin: true});
         }
         else {

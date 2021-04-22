@@ -8,26 +8,23 @@ function NavHeader(props) {
     
     return(
         <>
-        {console.log(props.status)}
+        {console.log("loggedin:", props.status) /*Nav header created by Matt Bartos, Alex Preston and Tim Desmond helped contribute!*/}
            <div className="pos-f-t">
                 <div className="collapse" id="navbarToggleExternalContent">
                     <div className="bg-dark">
                         <Link className="text-white ml-3 h4" to="/">MyConstruction</Link>
                         <div className="row mt-3 ml-3">
-                            <div id="posts" className="btn-group-vertical pb-4 mr-4">
-                                <Link type="button" className="h5 text-white" to="/">Posts</Link>
-                                <Link type="button" className="pt-1 text-light" to="/">My Posts</Link>
-                                <Link type="button" className="pt-1 text-light" to="/">All Posts</Link>
-                            </div>
                             <div id="projects" className="btn-group-vertical pb-4 mr-4">
                                 <Link type="button" className="h5 text-white" to="/">Projects</Link>
                                 <Link type="button" className="pt-1 text-light" to="/myprojects">My Projects</Link>
                                 <Link type="button" className="pt-1 text-light" to="/">All Projects</Link>
+                                <Link type="button" className="pt-1 text-light" to="/createProject">Create Project</Link>
                             </div>
                             <div id="accounts" className="btn-group-vertical pb-4">
                                 <Link type="button" className="h5 text-white" to="/">Accounts</Link>
                                 <Link type="button" className="pt-1 text-light" to="/">My Account</Link>
-                                <Link type="button" className="pt-1 text-light" to="/">Pro Accounts</Link>
+                                <Link type="button" className="pt-1 text-light" to="/proffesionalAccounts">Pro Accounts</Link>
+                                <Link type="button" className="pt-1 text-light" to="/">Search Accounts</Link>
                             </div>
                         </div>
                     </div>

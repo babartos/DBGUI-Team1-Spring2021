@@ -8,20 +8,29 @@ import { BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import NavHeader from './navheader'
 import { MyProjectList } from './myProjectList';
 import { ProjectCreator } from './projectCreator';
+import { PostList } from './postList';
+import { PostCreator } from './postcreator';
+import { UserEditor } from './userEditor';
+import { MailSend } from './mailSend';
 
 export class App extends React.Component {
   state = {
-    loggedIn: false
+    loggedIn: false,
+    currentId: undefined,
+    currentUsername: undefined
   }
 
-  logger = (id) => {
-    this.setState({loggedIn: true})
+  logger = (id, passedUsername) => {
+    //console.log(id);
+    this.setState({loggedIn: true});
+    this.setState({currentId: id});
+    this.setState({currentUsername: passedUsername})
   }
 
   logoutFunction = () => {
     this.setState({loggedIn: false})
   }
-
+  
   render() {
     return (
       <div>
@@ -35,7 +44,16 @@ export class App extends React.Component {
               <Route path="/account" component={Home}/>
               <Route path="/mail" component={Mail}/>
               <Route path="/proffesionalAccounts" component={ProAccounts}/>
+              <Route exact path="/login"  render={() => <Login loginFunction={this.logger}/>}/>
+              <Route exact path="/signup" component={Signup}/> 
+              <Route exact path="/myprojects" render={() => <PostList id={this.state.currentId}/>}/>
+              <Route exact path="/createProject" render={() => <PostCreator id={this.state.currentId}/>}/>
+              <Route exact path="/mail" render={() => <Mail username={this.state.currentUsername} id={this.state.currentId}/>}/>
+              <Route exact path="/sendmail" render={() => <MailSend id={this.state.currentId}/>}/>
+              <Route exact path="/proffesionalAccounts" component={ProAccounts}/>
+              <Route exact path="/profile" render={() => <UserEditor id={this.state.currentId}/>}/>
               <Route path="/" component={Home}/>
+              {console.log(this.state)}
           </Switch>
       </Router>
       </div>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { userRepository } from '../api';
+import { UserRepository } from '../api';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 export const UserDashboard = props => {

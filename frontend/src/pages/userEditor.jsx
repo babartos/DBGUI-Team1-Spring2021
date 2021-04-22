@@ -1,8 +1,8 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
-import { userRepository } from '../api';
+import { UserRepository } from '../api/userRepository';
 
-export class userEditor extends React.Component {
+export class UserEditor extends React.Component {
     userRepository = new UserRepository();
 
     state = {

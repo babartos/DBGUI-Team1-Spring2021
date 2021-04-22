@@ -710,10 +710,10 @@ app.post('/message/send', (req, res) => {
       res.status(400).send('Problem obtaining MySQL connection');
     }
     else {
-      connection.query('INSERT INTO mail (userName, senderID, content) values (?,?,?)',
+      connection.query('INSERT INTO mail (userName, senderUserName, content) values (?,?,?)',
       [
         req.body.userName,
-        req.body.senderID,
+        req.body.senderUserName,
         req.body.content
       ],
         function (err, rows, fields) {

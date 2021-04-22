@@ -6,7 +6,7 @@ export class MailSend extends React.Component {
     mailRepoServce = new MailRepo();
 
     state = {
-      userID: 1,
+      userID: undefined,
       sendUsername: "",
       sendMessageBody: ""
     }

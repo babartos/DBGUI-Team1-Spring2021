@@ -1,5 +1,5 @@
 import React from "react";
-
+import { Link, Redirect } from 'react-router-dom';
 
 export class Home extends React.Component {
     state = {
@@ -7,10 +7,19 @@ export class Home extends React.Component {
     }  
     render() {
       return (
-        <div>
-            <h2>My construction</h2>
-            <p>A tool for average Joe's to be able to post DIY styled construction projects and for professionals to provide insight on those projects. These professionals would be able to provide ideas and tools they think are best suited for the project at mind.</p>
+    <div className="mt-3">
+      <div className="container text-align-center">
+        <div className="margin-left-auto margin-right-auto  ">
+          <h1 className="cover-heading">MyConstruction</h1>
+          <p className="mt-3 lead">MyConstruction is a tool for all users, from Average Joe's to Professionals. Post DIY styled construction projects and ask professionals to provide insight on your projects</p>
+          <Link to="/proffesionalAccounts"  className="text-center btn btn-lg btn-dark mt-3 mr-5">Discover Professionals</Link>
+          <Link to="/proffesionalAccounts"  className="btn btn-lg btn-dark mt-3">See DIY Projects</Link>
+
         </div>
-      );
+
+      </div>
+
+    </div>
+    );
     }  
   }

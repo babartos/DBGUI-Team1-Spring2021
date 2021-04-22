@@ -216,7 +216,7 @@ module.exports = function routes(app, logger) {
           [req.params.userID],
           function (err, rows, fields) {
             connection.release();
-            console.log(req.param cs);
+            console.log(req.param, cs);
             if (err) {
               logger.error("Error while fetching users: \n", err);
               res.status(400).json({
@@ -610,10 +610,15 @@ app.get('/professional', (req, res) => {
       res.status(400).send('Problem obtaining MySQL connection');
     }
     else {
-      connection.query('select userName,firstName,lastName,email,contactInfo,aboutMe from user',
+      connection.query('select userName,type,firstName,lastName,email,contactInfo,aboutMe from user',
       [
-        req.body.likes,
-        req.body.ratingID
+        req.body.userName,
+        req.body.type,
+        req.body.firstName,
+        req.body.lastName,
+        req.body.email,
+        req.body.contactInfo,
+        req.body.aboutMe
       ],
         function (err, rows, fields) {
           connection.release();

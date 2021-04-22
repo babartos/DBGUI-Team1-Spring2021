@@ -13,7 +13,7 @@ export class Login extends React.Component {
   };
 
   handleLogin = (event) => {
-    event.preventDefault();
+    //event.preventDefault();
     let error = this.errorChecking();
     if(!error) { //if no error
       this.accountRepo.login(this.state.username, this.state.password).then(data => {
@@ -73,6 +73,7 @@ export class Login extends React.Component {
             onChange={(myEvent) => this.setState({ password: myEvent.target.value })}
           />
           <button
+            type="button"
             className="form-control btn btn-primary btn-rounded d-block h-3 col-8 ml-3 mt-3 col-4"
             onClick={ (event) => this.handleLogin(event)}
           >

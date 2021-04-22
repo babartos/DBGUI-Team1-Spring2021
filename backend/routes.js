@@ -444,9 +444,8 @@ module.exports = function routes(app, logger) {
         res.status(400).send('Problem obtaining MySQL connection');
       }
       else {
-        connection.query('insert into project (projectID,userID,projectName,budget,description,category,photo,active) values (?,?,?,?,?,?,?,?,)',
+        connection.query('insert into project (userID,projectName,budget,description,category,photo,active) values (?,?,?,?,?,?,?)',
         [
-          req.body.projectID,
           req.body.userID,
           req.body.projectName,
           req.body.budget,
@@ -792,6 +791,33 @@ app.post('/message/send', (req, res) => {
     });
   });
 
+  app.get('/projects', (req, res) => {
+    pool.getConnection(function (err, connection) {
+      if (err) {
+        logger.error('Problem obtaining MySQL connection', err)
+        res.status(400).send('Problem obtaining MySQL connection');
+      }
+      else {
+        connection.query('SELECT * FROM project',
+          function (err, rows, fields) {
+            connection.release();
+            if (err) {
+              logger.error("Errors: \n", err);
+              res.status(400).json({
+                "data": [],
+                "error": "Error obtaining values"
+              })
+            }
+            else {
+              res.status(200).json({
+                "data": rows
+              });
+            }
+          });
+      }
+    });
+  });
+
   app.get('/postbyUser/:userID', (req, res) => {
     pool.getConnection(function (err, connection) {
       if (err) {
@@ -813,6 +839,34 @@ app.post('/message/send', (req, res) => {
             else {
               res.status(200).json({
                 "data": rows
+              });
+            }
+          });
+      }
+    });
+  });
+
+  app.get('/mailboxByUserName/:userName', (req, res) => {
+    pool.getConnection(function (err, connection) {
+      if (err) {
+        logger.error('Problem obtaining MySQL connection', err)
+        res.status(400).send('Problem obtaining MySQL connection');
+      }
+      else {
+        connection.query('SELECT mailboxID FROM mailbox INNER JOIN user ON mailbox.userID = user.userID WHERE userName = ?',
+          [req.params.userName],
+          function (err, rows, fields) {
+            connection.release();
+            if (err) {
+              logger.error("Errors: \n", err);
+              res.status(400).json({
+                "data": [],
+                "error": "Error obtaining values"
+              })
+            }
+            else {
+              res.status(200).json({
+                "data": rows[0]
               });
             }
           });
@@ -871,7 +925,7 @@ app.post('/message/send', (req, res) => {
             }
             else {
               res.status(200).json({
-                "data": rows
+                "data": rows[0]
               });
             }
           });
@@ -903,7 +957,7 @@ app.post('/message/send', (req, res) => {
             }
             else {
               res.status(200).json({
-                "data": rows
+                "data": rows[0]
               });
             }
           });
@@ -963,7 +1017,7 @@ app.post('/message/send', (req, res) => {
             }
             else {
               res.status(200).json({
-                "data": rows
+                "data": rows[0]
               });
             }
           });

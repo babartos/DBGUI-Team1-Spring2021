@@ -6,10 +6,11 @@ export class Mail extends React.Component {
     mailRepo = new MailRepo();
 
     state = {
-      userID: 1,
+      userID: undefined,
+      myusername: undefined,
       // messages: [{sender: "Matt", content:"message"},
       // {sender: "Richard", content:"message2"}]
-      messages: []
+      messages: undefined
     }
     
     
@@ -20,12 +21,11 @@ export class Mail extends React.Component {
             { !this.state.messages && <h2 className="d-block m-4">No Mail</h2> }
             { this.state.messages &&  <h2 className="d-block m-4">My Mail</h2> }
             <Link type="button" to="/sendmail" className="btn btn-primary ml-5 mb-3">Compose Message</Link>
-            { this.state.messages &&
-              this.state.messages.map((x, i) => <div className="card ml-5 mr-5 mt-3" key={ i }> 
-                    <div className="card-header h3 p-3">{x.sender}</div>
-                    <div className="card-body bg-light">
-                        <div className="">{x.content}</div>
-                    </div>
+            { this.state.messages && 
+              this.state.messages.data.map((x, i) => <div className="border-dark card ml-5 mr-5 mt-3" key={ i }> 
+                    {console.log(x)}
+                    <div className="card-header border-dark h4 p-3">From: {x.senderID}</div>
+                    <div className="card-body border-dark p-2 bg-light"> {x.content} </div>
                 </div>)
             }
             </div>
@@ -36,10 +36,10 @@ export class Mail extends React.Component {
     componentDidMount() {
       let id = this.props.id;
       this.setState({userID: id});
+      this.setState({myusername: this.props.username})
       if (id) {
-          this.mailRepo.getMail(1)
+          this.mailRepo.getMail(this.props.username)
           .then(mail => this.setState({messages: mail}));
       }
-      console.log(this.state)
     }
   }

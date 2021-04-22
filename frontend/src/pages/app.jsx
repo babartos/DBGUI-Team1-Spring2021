@@ -14,13 +14,15 @@ import { MailSend } from './mailSend';
 export class App extends React.Component {
   state = {
     loggedIn: false,
-    currentId: undefined
+    currentId: undefined,
+    currentUsername: undefined
   }
 
-  logger = (id) => {
+  logger = (id, passedUsername) => {
     //console.log(id);
     this.setState({loggedIn: true});
     this.setState({currentId: id});
+    this.setState({currentUsername: passedUsername})
   }
 
   logoutFunction = () => {
@@ -37,7 +39,7 @@ export class App extends React.Component {
               <Route exact path="/signup" component={Signup}/> 
               <Route exact path="/myprojects" render={() => <PostList id={this.state.currentId}/>}/>
               <Route exact path="/createProject" render={() => <PostCreator id={this.state.currentId}/>}/>
-              <Route exact path="/mail" render={() => <Mail id={this.state.currentId}/>}/>
+              <Route exact path="/mail" render={() => <Mail username={this.state.currentUsername} id={this.state.currentId}/>}/>
               <Route exact path="/sendmail" render={() => <MailSend id={this.state.currentId}/>}/>
               <Route exact path="/proffesionalAccounts" component={ProAccounts}/>
               <Route exact path="/profile" render={() => <UserEditor id={this.state.currentId}/>}/>

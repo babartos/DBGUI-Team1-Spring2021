@@ -11,9 +11,9 @@ export class MailRepo {
     }
 
     //logging in 
-    getMail(id){
+    getMail(username){
         return new Promise((resolve, reject) => {
-            axios.get(`${this.url}/message/${id}`, this.config)
+            axios.get(`${this.url}/message/${username}`, this.config)
             .then(x => resolve(x.data))
             .catch(error => {
                 console.log("error");
@@ -24,9 +24,10 @@ export class MailRepo {
 
     sendMail(passedState){
         return new Promise((resolve, reject) => {
-            axios.post(`${this.url}/message/username`,  {
-                "content": passedState.content,
-                "userID": passedState.userID
+            axios.post(`${this.url}/message/send`,  {
+                "userName": passedState.sendUsername,
+                "senderID": passedState.userID,
+                "content": passedState.sendMessageBody
             }, this.config)
             .then(x => resolve(x.data))
             .catch(error => {

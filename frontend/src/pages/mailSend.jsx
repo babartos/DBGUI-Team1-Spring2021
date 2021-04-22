@@ -11,7 +11,25 @@ export class MailSend extends React.Component {
       sendMessageBody: ""
     }
     
-    
+    handleSendMessage = (event) => {
+      event.preventDefault();
+      // if(!this.state.userID || !this.state.sendMessageBody || !this.state.sendMessageBody) {
+      //   alert("Please enter all fields");
+      // }
+      // else {
+      this.mailRepoServce.sendMail(this.state).then(data => {
+          if(data) {
+            console.log(this.state);
+            console.log(data);
+            alert("sucesss");
+          }
+          else {
+            alert("Error in Sending Mail");
+          }
+        })
+      //  }
+    }
+
     render() {
       return (
         <div className="mt-2">
@@ -32,11 +50,16 @@ export class MailSend extends React.Component {
             </div>
             <div className="form-group row">
                 <div className="col-sm-10">
-                <button type="submit" className="btn btn-secondary" onClick={(event) => this.handleSignup(event)}>Send Message</button>
+                <button type="submit" className="btn btn-secondary" onClick={(event) => this.handleSendMessage(event)}>Send Message</button>
                 </div>
             </div>
           </form>
         </div>
       );
-    }  
+    }
+
+    componentDidMount() {
+      let id = this.props.id;
+      this.setState({userID: id});
+    } 
   }

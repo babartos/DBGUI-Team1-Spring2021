@@ -19,7 +19,7 @@ export class Login extends React.Component {
       this.accountRepo.login(this.state.username, this.state.password).then(data => {
         if(data) {
           console.log(data);
-          this.props.loginFunction(data);
+          this.props.loginFunction(data, this.state.username);
           this.setState({successfulLogin: true});
         }
         else {

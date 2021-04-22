@@ -610,7 +610,7 @@ app.get('/professional', (req, res) => {
       res.status(400).send('Problem obtaining MySQL connection');
     }
     else {
-      connection.query('select userName,type,firstName,lastName,email,contactInfo,aboutMe from user',
+      connection.query('select userName,type,firstName,lastName,email,contactInfo,aboutMe from user where type="Professional"',
       [
         req.body.userName,
         req.body.type,

@@ -30,8 +30,8 @@ export class App extends React.Component {
           <Switch>
               <Route path="/login" render={() => <Login loginFunction={this.logger}/>}/>
               <Route path="/signup" component={Signup}/>
-              <Route path="/myprojects" component={MyProjectList}/>
-              <Route path="/creatPost" component={ProjectCreator}/>
+              <Route path="/myprojects/:userID" component={MyProjectList}/>
+              <Route path="/creatPost/:userID" component={ProjectCreator}/>
               <Route path="/account" component={Home}/>
               <Route path="/mail" component={Mail}/>
               <Route path="/proffesionalAccounts" component={ProAccounts}/>

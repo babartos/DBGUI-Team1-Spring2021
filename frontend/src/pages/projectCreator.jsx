@@ -8,6 +8,7 @@ export class ProjectCreator extends React.Component {
   projectRepo = new ProjectRepo();
 
   state = {
+    userID: this.props.match.params.userID,
     projectName: "",
     projectbudget: 0.0,
     projectcategory: "",
@@ -21,20 +22,17 @@ export class ProjectCreator extends React.Component {
   }
 
   creatProject(){
-    console.log("Line 24");
     let projectData = {
-      projectID: 1,
-      userID: 1,
+      userID: this.state.userID,
       projectName: this.state.projectName,
-      budget: 23.5,
+      budget: this.state.budget,
       description: this.state.projectdescription,
-      category: "land",
+      category: this.state.projectcategory,
       photo: "Heresaurl",
       active: 1
     }
     this.projectRepo.createProject(projectData);
     this.setState({postCreatedSuccess: true});
-    console.log("postCreatedSuccess: " + this.state.postCreatedSuccess)
   }
 
   errorChecking() {
@@ -57,7 +55,7 @@ export class ProjectCreator extends React.Component {
     return (
       <form>
         <div className="container-sm border border-secondary">
-          <h1>Create a new Project</h1> <br></br>
+          <h1>Create a new Project for user: {this.props.userID}</h1> <br></br>
           <div id="username" className="mb-3">
             <label htmlFor="userName">Project Name:</label><br></br>
             <input
@@ -117,7 +115,7 @@ export class ProjectCreator extends React.Component {
             Post Project
           </button>
         </div>
-        {this.state.postCreatedSuccess && <Redirect to="/myprojects"/>}
+        {this.state.postCreatedSuccess && <Redirect to={'/myprojects/' + this.props.match.params.userID}/>}
       </form>
     );
   }

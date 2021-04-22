@@ -10,11 +10,13 @@ export const MyProjectList = props => {
   const [projects, setProjects] = useState(undefined);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState();
-  
+  const [userID, setID] = useState();
 
   useEffect(() => {
     if (!projects) {
-        projectRepo.getusersProjects(3).then(x => {
+        setID(props.match.params.userID);
+        console.log("Line 18 userID: " + userID)
+        projectRepo.getusersProjects(userID).then(x => {
           setProjects(x);
         })
         .catch((err) => {
@@ -41,7 +43,7 @@ export const MyProjectList = props => {
   return <>
       <div className="container-sm">
           <h1>My Projects:</h1>
-                <Link type="button" to="/creatPost" className="btn btn-primary mb-3">Create new Post</Link>
+                <Link type="button" to={'/creatPost/' + userID} className="btn btn-primary mb-3">Create new Post</Link>
           {
             projects.map(project =>
                         <div className="card mb-3" key={project.projectID}>
@@ -50,7 +52,7 @@ export const MyProjectList = props => {
                             <p>{project.description}</p>
                             <div>
                                 <button className="btn btn-secondary m-2">Edit</button>
-                                {/* <button className="btn btn-danger" onClick={() => projectRepo.deleteProject(project.projectID)}>Delete</button> */}
+                                <button className="btn btn-danger" onClick={() => projectRepo.deleteProject(project.projectID)}>Delete</button>
                             </div>
                             
                         </div>

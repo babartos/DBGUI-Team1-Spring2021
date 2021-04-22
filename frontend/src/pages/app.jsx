@@ -36,7 +36,7 @@ export class App extends React.Component {
               <Route exact path="/login"  render={() => <Login loginFunction={this.logger}/>}/>
               <Route exact path="/signup" component={Signup}/> 
               <Route exact path="/myprojects" render={() => <PostList id={this.state.currentId}/>}/>
-              <Route exact path="/creatPost" render={() => <PostCreator id={this.state.currentId}/>}/>
+              <Route exact path="/createProject" render={() => <PostCreator id={this.state.currentId}/>}/>
               <Route exact path="/mail" render={() => <Mail id={this.state.currentId}/>}/>
               <Route exact path="/sendmail" render={() => <MailSend id={this.state.currentId}/>}/>
               <Route exact path="/proffesionalAccounts" component={ProAccounts}/>

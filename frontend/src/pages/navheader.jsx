@@ -18,12 +18,12 @@ function NavHeader(props) {
                                 <Link type="button" className="h5 text-white" to="/">Projects</Link>
                                 <Link type="button" className="pt-1 text-light" to="/myprojects">My Projects</Link>
                                 <Link type="button" className="pt-1 text-light" to="/">All Projects</Link>
-                                <Link type="button" className="pt-1 text-light" to="/">Create Project</Link>
+                                <Link type="button" className="pt-1 text-light" to="/createProject">Create Project</Link>
                             </div>
                             <div id="accounts" className="btn-group-vertical pb-4">
                                 <Link type="button" className="h5 text-white" to="/">Accounts</Link>
                                 <Link type="button" className="pt-1 text-light" to="/">My Account</Link>
-                                <Link type="button" className="pt-1 text-light" to="/">Pro Accounts</Link>
+                                <Link type="button" className="pt-1 text-light" to="/proffesionalAccounts">Pro Accounts</Link>
                                 <Link type="button" className="pt-1 text-light" to="/">Search Accounts</Link>
                             </div>
                         </div>

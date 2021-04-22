@@ -1,18 +1,38 @@
 import React from "react";
 import { Link, Redirect } from 'react-router-dom';
+import { ProjectRepo } from './../api/projectRepo';
 
 
-export class PostCreator extends React.Component {
+export class ProjectCreator extends React.Component {
+
+  projectRepo = new ProjectRepo();
+
   state = {
+    userID: this.props.match.params.userID,
     projectName: "",
-    budget: "",
-    category: "",
-    description: ""
-
+    projectbudget: 0.0,
+    projectcategory: "",
+    projectdescription: "",
+    projectphoto: "",
+    postCreatedSuccess: false
   };
 
   handlePosting() {
     this.errorChecking();
+  }
+
+  creatProject(){
+    let projectData = {
+      userID: this.state.userID,
+      projectName: this.state.projectName,
+      budget: this.state.budget,
+      description: this.state.projectdescription,
+      category: this.state.projectcategory,
+      photo: "Heresaurl",
+      active: 1
+    }
+    this.projectRepo.createProject(projectData);
+    this.setState({postCreatedSuccess: true});
   }
 
   errorChecking() {
@@ -35,7 +55,7 @@ export class PostCreator extends React.Component {
     return (
       <form>
         <div className="container-sm border border-secondary">
-          <h1>Create a new Post</h1> <br></br>
+          <h1>Create a new Project for user: {this.props.userID}</h1> <br></br>
           <div id="username" className="mb-3">
             <label htmlFor="userName">Project Name:</label><br></br>
             <input
@@ -52,7 +72,7 @@ export class PostCreator extends React.Component {
              <label htmlFor="budget">Project Type:</label><br></br>
              <select className="form-select form-select-sm"
                       aria-label=".form-select-sm example"
-                      onChange={(myEvent) => this.setState({ category: myEvent.target.value})}>
+                      onChange={(myEvent) => this.setState({ projectcategory: myEvent.target.value})}>
                 <option value="Landscaping">Landscaping</option>
                 <option value="Outdoor">Outdoor</option>
                 <option value="Indoor/Renovation">Indoor/Renovation</option>
@@ -66,7 +86,7 @@ export class PostCreator extends React.Component {
                 className="form-control"
                 name="budget"
                 id="budget"
-                onChange={(myEvent) => this.setState({ budget: myEvent.target.value })}
+                onChange={(myEvent) => this.setState({ projectbudget: myEvent.target.value })}
               />
             </div>
           </div>
@@ -82,18 +102,20 @@ export class PostCreator extends React.Component {
               className="form-control mb-3"
               rows="5"
               placeholder="What do you want proffessionals to know about your project?"
-              onChange={(myEvent) => this.setState({ budget: myEvent.target.value })}
+              onChange={(myEvent) => this.setState({ projectdescription: myEvent.target.value })}
             />
             </div>
           
           {/* add error checking to this.state */}
           <button
-            onClick={ () => this.handlePosting()}
+            type="button"
+            onClick={ () => this.creatProject()}
             className="btn btn-primary mb-3"
           >
             Post Project
           </button>
         </div>
+        {this.state.postCreatedSuccess && <Redirect to={'/myprojects/' + this.props.match.params.userID}/>}
       </form>
     );
   }

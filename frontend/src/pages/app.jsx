@@ -6,6 +6,8 @@ import { Mail } from "./mail";
 import { ProAccounts } from "./proAccounts";
 import { BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import NavHeader from './navheader'
+import { MyProjectList } from './myProjectList';
+import { ProjectCreator } from './projectCreator';
 import { PostList } from './postList';
 import { PostCreator } from './postcreator';
 import { UserEditor } from './userEditor';
@@ -35,6 +37,13 @@ export class App extends React.Component {
       <Router>
           <NavHeader status={this.state.loggedIn} logout={this.logoutFunction}/>
           <Switch>
+              <Route path="/login" render={() => <Login loginFunction={this.logger}/>}/>
+              <Route path="/signup" component={Signup}/>
+              <Route path="/myprojects/:userID" component={MyProjectList}/>
+              <Route path="/creatPost/:userID" component={ProjectCreator}/>
+              <Route path="/account" component={Home}/>
+              <Route path="/mail" component={Mail}/>
+              <Route path="/proffesionalAccounts" component={ProAccounts}/>
               <Route exact path="/login"  render={() => <Login loginFunction={this.logger}/>}/>
               <Route exact path="/signup" component={Signup}/> 
               <Route exact path="/myprojects" render={() => <PostList id={this.state.currentId}/>}/>

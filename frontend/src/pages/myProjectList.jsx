@@ -29,7 +29,10 @@ export const MyProjectList = props => {
     }
   });
 
-
+// handleDelete = itemId => {
+//   const items = this.state.items.filter(item => item.id !== itemId);
+//   this.setState({ items: items });
+// };
 
   if (loading) {
     return <p>Data is loading...</p>;

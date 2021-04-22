@@ -444,7 +444,7 @@ module.exports = function routes(app, logger) {
         res.status(400).send('Problem obtaining MySQL connection');
       }
       else {
-        connection.query('insert into project (projectID,userID,projectName,budget,description,category,photo,active) values (?,?,?,?,?,?,?,?,)',
+        connection.query('insert into project (projectID,userID,projectName,budget,description,category,photo,active) values (?,?,?,?,?,?,?,?)',
         [
           req.body.projectID,
           req.body.userID,

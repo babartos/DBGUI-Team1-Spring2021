@@ -3,6 +3,11 @@ import { MailRepo } from "../api/mailRepo";
 import { Link, Redirect } from 'react-router-dom';
 
 export class Mail extends React.Component {
+  constructor(props) {
+    super(props);
+    console.log(this.props);
+  }
+
     mailRepo = new MailRepo();
 
     state = {
@@ -29,17 +34,15 @@ export class Mail extends React.Component {
                 </div>)
             }
             </div>
+            {console.log(this.state)}
         </div>
       );
     }
     
     componentDidMount() {
-      let id = this.props.id;
-      this.setState({userID: id});
+      console.log(this.props.username);
       this.setState({myusername: this.props.username})
-      if (id) {
-          this.mailRepo.getMail(this.props.username)
-          .then(mail => this.setState({messages: mail}));
-      }
+      this.mailRepo.getMail("admin")
+        .then(mail => this.setState({messages: mail}));
     }
   }

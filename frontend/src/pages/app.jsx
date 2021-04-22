@@ -45,11 +45,11 @@ export class App extends React.Component {
               <Route exact path="/login"  render={() => <Login loginFunction={this.logger}/>}/>
               <Route exact path="/signup" component={Signup}/> 
               <Route exact path="/mail" render={() => <Mail username={this.state.currentUsername} id={this.state.currentId}/>}/>
-              <Route exact path="/sendmail" render={() => <MailSend id={this.state.currentId}/>}/>
+              <Route exact path="/sendmail" render={() => <MailSend username={this.state.currentUsername} id={this.state.currentId}/>}/>
               <Route exact path="/proffesionalAccounts" component={ProAccounts}/>
               <Route exact path="/profile" render={() => <UserEditor id={this.state.currentId}/>}/>
               <Route path="/" component={Home}/>
-              {console.log(this.state)}
+              {console.log("main compontent:" , this.state)}
           </Switch>
       </Router>
       </div>

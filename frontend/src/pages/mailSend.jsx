@@ -7,6 +7,7 @@ export class MailSend extends React.Component {
 
     state = {
       userID: undefined,
+      myusername: undefined,
       sendUsername: "",
       sendMessageBody: ""
     }
@@ -34,6 +35,7 @@ export class MailSend extends React.Component {
       return (
         <div className="mt-2">
             <form className="border p-3 m-5">
+            {console.log(this.state)}
             <header className="display-4 mb-4">Compose Message</header>
             <p>Username is case sensitive</p>
             <div className="form-group row">
@@ -61,5 +63,6 @@ export class MailSend extends React.Component {
     componentDidMount() {
       let id = this.props.id;
       this.setState({userID: id});
+      this.setState({myusername: this.props.username})
     } 
   }

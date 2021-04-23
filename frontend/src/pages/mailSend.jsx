@@ -1,6 +1,6 @@
 import React from "react";
 import { MailRepo } from "../api/mailRepo";
-
+import { Link, Redirect } from 'react-router-dom';
 
 export class MailSend extends React.Component {
     mailRepoServce = new MailRepo();
@@ -9,26 +9,24 @@ export class MailSend extends React.Component {
       userID: undefined,
       myusername: undefined,
       sendUsername: "",
-      sendMessageBody: ""
+      sendMessageBody: "",
+      mailSendStatus: undefined
+    
     }
     
     handleSendMessage = (event) => {
       event.preventDefault();
-      // if(!this.state.userID || !this.state.sendMessageBody || !this.state.sendMessageBody) {
-      //   alert("Please enter all fields");
-      // }
-      // else {
       this.mailRepoServce.sendMail(this.state).then(data => {
           if(data) {
-            console.log(this.state);
-            console.log(data);
-            alert("sucesss");
+            // console.log(this.state);
+            // console.log(data);
+            alert("Mail delivered successfully");
+            this.setState({mailSendStatus: true});
           }
           else {
             alert("Error in Sending Mail");
           }
         })
-      //  }
     }
 
     render() {
@@ -52,9 +50,10 @@ export class MailSend extends React.Component {
             </div>
             <div className="form-group row">
                 <div className="col-sm-10">
-                <button type="submit" className="btn btn-secondary" onClick={(event) => this.handleSendMessage(event)}>Send Message</button>
+                <button type="submit" className="btn btn-primary p-2" onClick={(event) => this.handleSendMessage(event)}>Send Message</button>
                 </div>
             </div>
+            {this.state.mailSendStatus && <Redirect to="/mail"/>}
           </form>
         </div>
       );

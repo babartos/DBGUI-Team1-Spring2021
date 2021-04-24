@@ -18,6 +18,7 @@ export const MyProjectList = props => {
         console.log("Line 18 userID: " + userID)
         projectRepo.getusersProjects(userID).then(x => {
           setProjects(x);
+          console.log("X: " + x)
         })
         .catch((err) => {
             setError(err);
@@ -49,17 +50,21 @@ export const MyProjectList = props => {
                 <Link type="button" to={'/creatPost/' + userID} className="btn btn-primary mb-3">Create new Post</Link>
           {
             projects.map(project =>
-                        <div className="card mb-3" key={project.projectID}>
-                            <h2>{project.projectName}</h2>
-                            <p className="text-muted ">{project.category}</p>
-                            <p>{project.description}</p>
-                            <div>
-                                <button className="btn btn-secondary m-2">Edit</button>
-                                <button className="btn btn-danger" onClick={() => projectRepo.deleteProject(project.projectID).then({
-                                  //Delete from array here
-                                })}>Delete</button>
+                        <div className="card mb-3 row" key={project.projectID}>
+                            <div className="col">
+                              <img src="https://i.pinimg.com/originals/a8/28/5e/a8285e3abdec766d7df375f3a007de28.jpg" className="w-50"></img>
                             </div>
-                            
+                            <div className="col">
+                              <h2>{project.projectName}</h2>
+                              <p className="text-muted ">{project.category}</p>
+                              <p>{project.description}</p>
+                              <div className="">
+                                  <button className="btn btn-secondary m-2">Edit</button>
+                                  <button className="btn btn-danger" onClick={() => projectRepo.deleteProject(project.projectID).then({
+                                    //Delete from array here
+                                  })}>Delete</button>
+                              </div>
+                            </div>
                         </div>
             )
         }

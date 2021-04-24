@@ -44,6 +44,7 @@ export const AllProjectList = props => {
             projects.map(project =>
                         <div className="card mb-3" key={project.projectID}>
                             <h2>{project.projectName}</h2>
+                            <img src="https://i.pinimg.com/originals/a8/28/5e/a8285e3abdec766d7df375f3a007de28.jpg" className="w-50"></img>
                             <p className="text-muted ">{project.category}</p>
                             <p>{project.description}</p>
                             

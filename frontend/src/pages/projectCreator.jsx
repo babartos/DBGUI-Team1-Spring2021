@@ -39,15 +39,18 @@ export class ProjectCreator extends React.Component {
     if(this.state.projectName === "") {
         alert('please enter a name for your project');
     }
-    if(this.state.budget === "") {
+    if(this.state.projectbudget === "") {
         alert('please enter a budget for your project');
     }
-    if(this.state.category === "") {
+    if(this.state.projectcategory === "") {
         alert('please enter a category for your project');
     }
-    if(this.state.budget === "") {
-        alert('please enter a description for your project');
+    if(this.state.projectphoto === "") {
+        alert('please enter a photo for your project');
     }
+    if(this.state.projectdescription === "") {
+      alert('please enter a description for your project');
+  }
     
   }
 
@@ -55,7 +58,7 @@ export class ProjectCreator extends React.Component {
     return (
       <form>
         <div className="container-sm border border-secondary">
-          <h1>Create a new Project for user: {this.props.userID}</h1> <br></br>
+          <h1>Create a new Project:</h1> <br></br>
           <div id="username" className="mb-3">
             <label htmlFor="userName">Project Name:</label><br></br>
             <input
@@ -69,13 +72,13 @@ export class ProjectCreator extends React.Component {
           </div>
           <div className="row align-items-center mb-3">
             <div id="budget" className="col-sm-2">
-             <label htmlFor="photo">Photo URL:</label><br></br>
+             <label htmlFor="budget">Budget:</label><br></br>
               <input
-                type="text"
+                type="number"
                 className="form-control"
                 name="budget"
                 id="budget"
-                onChange={(myEvent) => this.setState({ projectphoto: myEvent.target.value })}
+                onChange={(myEvent) => this.setState({ projectbudget: myEvent.target.value })}
               />
             </div>
             <div id="category" className="col-sm">

@@ -60,8 +60,8 @@ export class ProjectRepo {
 
     getAllProjects(){
         return new Promise((resolve, reject) => {
-            axios.get(`${this.url}/professional`, this.config)
-            .then(x => resolve(x.data))
+            axios.get(`${this.url}/projects`, this.config)
+            .then(x => resolve(x.data["data"]))
             .catch(error => {
                 console.log("error");
                 console.log(error);

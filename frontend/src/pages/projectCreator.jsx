@@ -28,7 +28,7 @@ export class ProjectCreator extends React.Component {
       budget: this.state.budget,
       description: this.state.projectdescription,
       category: this.state.projectcategory,
-      photo: "Heresaurl",
+      photo: this.state.projectphoto,
       active: 1
     }
     this.projectRepo.createProject(projectData);
@@ -68,7 +68,17 @@ export class ProjectCreator extends React.Component {
           />
           </div>
           <div className="row align-items-center mb-3">
-          <div id="category" className="col-sm">
+            <div id="budget" className="col-sm-2">
+             <label htmlFor="photo">Photo URL:</label><br></br>
+              <input
+                type="text"
+                className="form-control"
+                name="budget"
+                id="budget"
+                onChange={(myEvent) => this.setState({ projectphoto: myEvent.target.value })}
+              />
+            </div>
+            <div id="category" className="col-sm">
              <label htmlFor="budget">Project Type:</label><br></br>
              <select className="form-select form-select-sm"
                       aria-label=".form-select-sm example"
@@ -79,14 +89,14 @@ export class ProjectCreator extends React.Component {
                 <option value="Repairs">Repairs</option>
              </select>
             </div>
-            <div id="budget" className="col-sm-10">
-             <label htmlFor="budget">Budget:</label><br></br>
+            <div id="photo" className="col-sm-8">
+             <label htmlFor="photo">Photo URL:</label><br></br>
               <input
-                type="number"
+                type="text"
                 className="form-control"
-                name="budget"
-                id="budget"
-                onChange={(myEvent) => this.setState({ projectbudget: myEvent.target.value })}
+                name="photo"
+                id="photo"
+                onChange={(myEvent) => this.setState({ projectphoto: myEvent.target.value })}
               />
             </div>
           </div>

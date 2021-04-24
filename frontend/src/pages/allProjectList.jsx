@@ -4,7 +4,7 @@ import { ProjectCreator } from './projectCreator';
 import { Link, Redirect } from 'react-router-dom';
 import { ProjectRepo } from './../api/projectRepo';
 
-export const MyProjectList = props => {
+export const AllProjectList = props => {
 
   const projectRepo = new ProjectRepo();
   const [projects, setProjects] = useState(undefined);
@@ -14,9 +14,8 @@ export const MyProjectList = props => {
 
   useEffect(() => {
     if (!projects) {
-        setID(props.match.params.userID);
-        console.log("Line 18 userID: " + userID)
-        projectRepo.getusersProjects(userID).then(x => {
+        projectRepo.getAllProjects().then(x => {
+          console.log("X:" + x.data)
           setProjects(x);
         })
         .catch((err) => {
@@ -29,11 +28,6 @@ export const MyProjectList = props => {
     }
   });
 
-// handleDelete = itemId => {
-//   const items = this.state.items.filter(item => item.id !== itemId);
-//   this.setState({ items: items });
-// };
-
   if (loading) {
     return <p>Data is loading...</p>;
   }
@@ -45,20 +39,13 @@ export const MyProjectList = props => {
  
   return <>
       <div className="container-sm">
-          <h1>My Projects:</h1>
-                <Link type="button" to={'/creatPost/' + userID} className="btn btn-primary mb-3">Create new Post</Link>
+          <h1>All Projects:</h1>
           {
             projects.map(project =>
                         <div className="card mb-3" key={project.projectID}>
                             <h2>{project.projectName}</h2>
                             <p className="text-muted ">{project.category}</p>
                             <p>{project.description}</p>
-                            <div>
-                                <button className="btn btn-secondary m-2">Edit</button>
-                                <button className="btn btn-danger" onClick={() => projectRepo.deleteProject(project.projectID).then({
-                                  //Delete from array here
-                                })}>Delete</button>
-                            </div>
                             
                         </div>
             )
@@ -70,4 +57,4 @@ export const MyProjectList = props => {
 
   
 }
-export default MyProjectList;
+export default AllProjectList;

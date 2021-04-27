@@ -12,6 +12,8 @@ import { UserEditor } from './userEditor';
 import { MailSend } from './mailSend';
 import { AllProjectList } from './allProjectList';
 import { ProjectEditor } from './projectEditor';
+import { AllAccounts } from './allAccounts';
+import { ProfilePage } from './profilePage';
 
 export class App extends React.Component {
   constructor(props) {
@@ -52,6 +54,8 @@ export class App extends React.Component {
               <Route exact path="/createProject/:userID" component={ProjectCreator}/>
               <Route exact path="/editProject/:userID/:projectID" component={ProjectEditor}/>
               <Route exact path="/allProjects" render={() => <AllProjectList id={this.state.currentId}/>}/>
+              <Route exact path="/profilePage" render={() => <ProfilePage id={this.state.currentId}/>}/>
+              <Route exact path="/allAccounts" component={AllAccounts}/>
               <Route exact path="/userdashboard/:userID" component={UserEditor}/>
               <Route path="/" component={Home}/>
               {console.log("main compontent:" , this.state)}

@@ -2,11 +2,11 @@ import axios from "axios";
 
 export class UserRepository {
 
-    url = 'https://api.johnlawrimore.com/directory/accounts';
+    url = 'http://localhost:8000';
 
     config = {
         headers: {
-            Authorization: 'jlawrimore'
+            Authorization: '*'
         }
     };
 

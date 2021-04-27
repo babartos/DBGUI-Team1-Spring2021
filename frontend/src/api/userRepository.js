@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from 'axios';
 
 export class UserRepository {
 
@@ -6,7 +6,7 @@ export class UserRepository {
 
     config = {
         headers: {
-            Authorization: ''
+            Authorization: '*'
         }
     };
 

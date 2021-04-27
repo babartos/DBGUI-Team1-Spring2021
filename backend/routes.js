@@ -883,7 +883,7 @@ app.post('/message/send', (req, res) => {
         res.status(400).send('Problem obtaining MySQL connection');
       }
       else {
-        connection.query('SELECT * FROM postComment WHERE postID = ?',
+        connection.query('SELECT postComment.*, user.userName FROM postComment INNER JOIN user on postComment.userID = user.userID WHERE postComment.postID = ? ',
           [req.params.postID],
           function (err, rows, fields) {
             connection.release();

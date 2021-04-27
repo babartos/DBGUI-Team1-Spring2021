@@ -1035,7 +1035,7 @@ app.post('/message/send', (req, res) => {
         res.status(400).send('Problem obtaining MySQL connection');
       }
       else {
-        connection.query('UPDATE porject set likes = likes + 1 where projectID = ?',
+        connection.query('UPDATE project set likes = likes + 1 where projectID = ?',
           [
             req.params.projectID
           ],
@@ -1125,7 +1125,7 @@ app.post('/message/send', (req, res) => {
         res.status(400).send('Problem obtaining MySQL connection');
       }
       else {
-        connection.query('select dislikes from porject where projectID=?',
+        connection.query('select dislikes from project where projectID=?',
           [
             req.params.projectID
           ],

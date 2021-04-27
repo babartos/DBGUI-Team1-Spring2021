@@ -875,14 +875,14 @@ app.post('/message/send', (req, res) => {
     });
   });
 
-  app.get('/comment/:postID', (req, res) => {
+  app.get('/comment/:projectID', (req, res) => {
     pool.getConnection(function (err, connection) {
       if (err) {
         logger.error('Problem obtaining MySQL connection', err)
         res.status(400).send('Problem obtaining MySQL connection');
       }
       else {
-        connection.query('SELECT postComment.*, user.userName FROM postComment INNER JOIN user on postComment.userID = user.userID WHERE postComment.postID = ? ',
+        connection.query('SELECT postComment.*, user.userName FROM postComment INNER JOIN user on postComment.userID = user.userID WHERE postComment.projectID = ? ',
           [req.params.postID],
           function (err, rows, fields) {
             connection.release();
@@ -941,11 +941,11 @@ app.post('/message/send', (req, res) => {
         res.status(400).send('Problem obtaining MySQL connection');
       }
       else {
-        connection.query('INSERT INTO postComment(postID, userID, content, liked, created_at) VALUES(?, ?, ?, 0, current_timestamp())',
+        connection.query('INSERT INTO postComment(userID, content, liked, created_at, projectID) VALUES( ?, ?, 0, current_timestamp(), ?)',
           [
-            req.body.postID,
             req.body.userID,
-            req.body.content
+            req.body.content,
+            req.body.projectID
           ],
           function (err, rows, fields) {
             connection.release();

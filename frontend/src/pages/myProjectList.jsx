@@ -55,19 +55,23 @@ let onProjectDelete = (projectID) => {
   return <>
       <div className="container-sm">
           <h1>My Projects:</h1>
-                <Link type="button" to={'/creatPost/' + userID} className="btn btn-primary mb-3">Create new Post</Link>
+                <Link type="button" to={'/createProject/' + userID} className="btn btn-primary mb-3">Create new Post</Link>
           {
             projects.map(project =>
                         <div className="card mb-3 row" key={project.projectID}>
                             <div className="col">
-                              <img src="https://i.pinimg.com/originals/a8/28/5e/a8285e3abdec766d7df375f3a007de28.jpg" className="w-50"></img>
+                              <img src={project.photo} className="w-50"></img>
                             </div>
                             <div className="col">
                               <h2>{project.projectName}</h2>
                               <p className="text-muted ">{project.category}</p>
                               <p>{project.description}</p>
+                              <p>${project.budget}</p>
                               <div className="">
-                                  <button className="btn btn-secondary m-2">Edit</button>
+                                  <Link type="button" className="btn btn-secondary m-2" to={{
+                                    pathname: '/editProject/' + userID + "/" +  project.projectID, 
+                                    state: {project: project}
+                                  }}>Edit</Link>
                                   <button className="btn btn-danger" onClick={() => onProjectDelete(project.projectID)}>Delete</button>
                               </div>
                             </div>

@@ -3,26 +3,29 @@ import { Link, Redirect } from 'react-router-dom';
 import { ProjectRepo } from './../api/projectRepo';
 
 
-export class ProjectCreator extends React.Component {
+export class ProjectEditor extends React.Component {
 
   projectRepo = new ProjectRepo();
 
   state = {
     userID: this.props.match.params.userID,
-    projectName: "",
-    projectbudget: 0.0,
-    projectcategory: "",
-    projectdescription: "",
-    projectphoto: "",
+    projectID: this.props.match.params.projectID,
+    projectName: this.props.location.state.project.projectName,
+    projectbudget: this.props.location.state.project.budget,
+    projectcategory: this.props.location.state.project.category,
+    projectdescription: this.props.location.state.project.description,
+    projectphoto: this.props.location.state.project.photo,
     postCreatedSuccess: false
+    
   };
 
   handlePosting() {
     this.errorChecking();
   }
 
-  creatProject(){
+  updateProject(){
     let projectData = {
+      projectID: this.state.projectID,
       userID: this.state.userID,
       projectName: this.state.projectName,
       budget: this.state.projectbudget,
@@ -31,34 +34,27 @@ export class ProjectCreator extends React.Component {
       photo: this.state.projectphoto,
       active: 1
     }
-    this.projectRepo.createProject(projectData);
+    this.projectRepo.updateProject(projectData);
     this.setState({postCreatedSuccess: true});
   }
 
-  errorChecking() {
-    if(this.state.projectName === "") {
-        alert('please enter a name for your project');
-    }
-    if(this.state.projectbudget === "") {
-        alert('please enter a budget for your project');
-    }
-    if(this.state.projectcategory === "") {
-        alert('please enter a category for your project');
-    }
-    if(this.state.projectphoto === "") {
-        alert('please enter a photo for your project');
-    }
-    if(this.state.projectdescription === "") {
-      alert('please enter a description for your project');
-  }
-    
+  constructor(props) {
+      super(props);
+      this.setState({
+        projectName: this.props.location.state.project.projectName,
+        projectbudget: this.props.location.state.project.budget,
+        projectcategory: this.props.location.state.project.category,
+        projectdescription: this.props.location.state.project.description,
+        projectphoto: this.props.location.state.project.photo
+      });
+      console.log("Line 36 projectEditor.jsx" + this.state.projectName);
   }
 
   render() {
     return (
       <form>
         <div className="container-sm border border-secondary">
-          <h1>Create a new Project:</h1> <br></br>
+          <h1>Edit your Project:</h1><br></br>
           <div id="username" className="mb-3">
             <label htmlFor="userName">Project Name:</label><br></br>
             <input
@@ -67,6 +63,7 @@ export class ProjectCreator extends React.Component {
             className="form-control"
             id="password"
             placeholder=""
+            value={this.state.projectName}
             onChange={(myEvent) => this.setState({ projectName: myEvent.target.value })}
           />
           </div>
@@ -78,6 +75,7 @@ export class ProjectCreator extends React.Component {
                 className="form-control"
                 name="budget"
                 id="budget"
+                value={this.state.projectbudget}
                 onChange={(myEvent) => this.setState({ projectbudget: myEvent.target.value })}
               />
             </div>
@@ -99,6 +97,7 @@ export class ProjectCreator extends React.Component {
                 className="form-control"
                 name="photo"
                 id="photo"
+                value={this.state.projectphoto}
                 onChange={(myEvent) => this.setState({ projectphoto: myEvent.target.value })}
               />
             </div>
@@ -114,7 +113,7 @@ export class ProjectCreator extends React.Component {
               id="description"
               className="form-control mb-3"
               rows="5"
-              placeholder="What do you want proffessionals to know about your project?"
+              value={this.state.projectdescription}
               onChange={(myEvent) => this.setState({ projectdescription: myEvent.target.value })}
             />
             </div>
@@ -122,10 +121,10 @@ export class ProjectCreator extends React.Component {
           {/* add error checking to this.state */}
           <button
             type="button"
-            onClick={ () => this.creatProject()}
+            onClick={ () => this.updateProject()}
             className="btn btn-primary mb-3"
           >
-            Post Project
+            Save Updates
           </button>
         </div>
         {this.state.postCreatedSuccess && <Redirect to={'/myprojects/' + this.props.match.params.userID}/>}

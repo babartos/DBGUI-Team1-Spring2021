@@ -2,11 +2,11 @@ import axios from "axios";
 
 export class UserRepository {
 
-    url = 'https://api.johnlawrimore.com/directory/accounts';
+    url = 'http://localhost:8000';
 
     config = {
         headers: {
-            Authorization: 'jlawrimore'
+            Authorization: ''
         }
     };
 
@@ -27,7 +27,7 @@ export class UserRepository {
 
     getUser(id) {
         return new Promise((resolve, reject) => {
-            axios.get(`${this.url}/${id}`, this.config)
+            axios.get(`${this.url}/users/${id}`, this.config)
                 .then(x => resolve(x.data))
                 .catch(error => {
                     alert(error);

@@ -3,6 +3,8 @@ import { Project } from './models/Project';
 import { ProjectCreator } from './projectCreator';
 import { Link, Redirect } from 'react-router-dom';
 import { ProjectRepo } from './../api/projectRepo';
+import { Comment } from './comment';
+import { CreateComment } from './createComment';
 
 export const AllProjectList = props => {
 
@@ -12,8 +14,11 @@ export const AllProjectList = props => {
   const [error, setError] = useState();
   const [userID, setID] = useState();
 
+  let temp = 0;
+
   useEffect(() => {
     if (!projects) {
+      setID(props.id)
         projectRepo.getAllProjects().then(x => {
           console.log("X:" + x.data)
           setProjects(x);
@@ -47,7 +52,8 @@ export const AllProjectList = props => {
                             <img src="https://i.pinimg.com/originals/a8/28/5e/a8285e3abdec766d7df375f3a007de28.jpg" className="w-50"></img>
                             <p className="text-muted ">{project.category}</p>
                             <p>{project.description}</p>
-                            
+                            <Comment myprojectID={project.projectID} />
+                            <CreateComment passedID={userID} myprojectID={project.projectID}/>
                         </div>
             )
         }

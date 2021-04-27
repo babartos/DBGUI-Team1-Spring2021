@@ -52,6 +52,7 @@ export class App extends React.Component {
               <Route exact path="/createProject/:userID" component={ProjectCreator}/>
               <Route exact path="/editProject/:userID/:projectID" component={ProjectEditor}/>
               <Route exact path="/allProjects" render={() => <AllProjectList id={this.state.currentId}/>}/>
+              <Route exact path="/userdashboard/:userID" component={UserEditor}/>
               <Route path="/" component={Home}/>
               {console.log("main compontent:" , this.state)}
           </Switch>

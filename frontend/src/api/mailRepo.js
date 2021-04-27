@@ -26,7 +26,7 @@ export class MailRepo {
         return new Promise((resolve, reject) => {
             axios.post(`${this.url}/message/send`,  {
                 "userName": passedState.sendUsername,
-                "senderID": passedState.userID,
+                "senderUserName": passedState.myusername,
                 "content": passedState.sendMessageBody
             }, this.config)
             .then(x => resolve(x.data))

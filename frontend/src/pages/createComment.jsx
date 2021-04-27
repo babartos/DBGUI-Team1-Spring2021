@@ -43,7 +43,7 @@ export class CreateComment extends React.Component {
                 </div>
                 <div className="form-group row">
                     <div className="col-sm-10">
-                        <Link to="/allProjects" type="button" className="btn btn-primary" onClick={(event) => this.handleComment(event)}>Post Comment</Link>
+                        <button type="button" className="btn btn-primary" onClick={(event) => this.handleComment(event)}>Post Comment</button>
                     </div>
                 </div>
                 </form>

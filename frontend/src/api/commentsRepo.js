@@ -22,12 +22,12 @@ export class CommentsRepo {
         });
     }
 
-    createComment(postID, userID, content) {
+    createComment(projectID, userID, content) {
         return new Promise((resolve, reject) => {
             axios.post(`${this.url}/comment`,  {
-                "postID": postID,
                 "userID": userID,
-                "content": content
+                "content": content,
+                "projectID": projectID
             }, this.config)
             .then(x => resolve(x.data))
             .catch(error => {

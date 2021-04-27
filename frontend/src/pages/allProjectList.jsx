@@ -53,7 +53,7 @@ export const AllProjectList = props => {
                             <p className="text-muted ">{project.category}</p>
                             <p>{project.description}</p>
                             <Comment myprojectID={project.projectID} />
-                            {userID && <CreateComment passedID={userID} myprojectID={project.projectID}/> }
+                            {userID /* if logged in*/ && <CreateComment passedID={userID} myprojectID={project.projectID}/> }
                         </div>
             )
         }

@@ -35,6 +35,14 @@ export const MyProjectList = props => {
 //   this.setState({ items: items });
 // };
 
+let onProjectDelete = (projectID) => {
+  if (window.confirm('Are you sure you want to delete this project?')) {
+      projectRepo.deleteProject(projectID).then(() => {
+          setProjects(projects.filter(x => x.projectID != projectID));
+      })
+  }
+};
+
   if (loading) {
     return <p>Data is loading...</p>;
   }
@@ -60,9 +68,7 @@ export const MyProjectList = props => {
                               <p>{project.description}</p>
                               <div className="">
                                   <button className="btn btn-secondary m-2">Edit</button>
-                                  <button className="btn btn-danger" onClick={() => projectRepo.deleteProject(project.projectID).then({
-                                    //Delete from array here
-                                  })}>Delete</button>
+                                  <button className="btn btn-danger" onClick={() => onProjectDelete(project.projectID)}>Delete</button>
                               </div>
                             </div>
                         </div>

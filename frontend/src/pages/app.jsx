@@ -10,6 +10,7 @@ import { MyProjectList } from './myProjectList';
 import { ProjectCreator } from './projectCreator';
 import { UserEditor } from './userEditor';
 import { MailSend } from './mailSend';
+import { AllProjectList } from './allProjectList';
 
 export class App extends React.Component {
   constructor(props) {
@@ -37,7 +38,7 @@ export class App extends React.Component {
     return (
       <div>
       <Router>
-          <NavHeader status={this.state.loggedIn} logout={this.logoutFunction}/>
+          <NavHeader status={this.state.loggedIn} userID={this.state.currentId} logout={this.logoutFunction}/>
           <Switch>
               <Route exact path="/login" render={() => <Login loginFunction={this.logger}/>}/>
               <Route exact path="/signup" component={Signup}/>
@@ -47,7 +48,8 @@ export class App extends React.Component {
               <Route exact path="/proffesionalAccounts" component={ProAccounts}/>
               <Route exact path="/profile" render={() => <UserEditor id={this.state.currentId}/>}/>
               <Route exact path="/myprojects/:userID" component={MyProjectList}/>
-              <Route exact path="/creatPost/:userID" component={ProjectCreator}/>
+              <Route exact path="/createProject/:userID" component={ProjectCreator}/>
+              <Route exact path="/allProjects" component={AllProjectList}/>
               <Route path="/" component={Home}/>
               {console.log("main compontent:" , this.state)}
           </Switch>

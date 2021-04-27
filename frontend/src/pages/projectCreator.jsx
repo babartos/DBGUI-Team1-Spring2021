@@ -28,7 +28,7 @@ export class ProjectCreator extends React.Component {
       budget: this.state.budget,
       description: this.state.projectdescription,
       category: this.state.projectcategory,
-      photo: "Heresaurl",
+      photo: this.state.projectphoto,
       active: 1
     }
     this.projectRepo.createProject(projectData);
@@ -39,15 +39,18 @@ export class ProjectCreator extends React.Component {
     if(this.state.projectName === "") {
         alert('please enter a name for your project');
     }
-    if(this.state.budget === "") {
+    if(this.state.projectbudget === "") {
         alert('please enter a budget for your project');
     }
-    if(this.state.category === "") {
+    if(this.state.projectcategory === "") {
         alert('please enter a category for your project');
     }
-    if(this.state.budget === "") {
-        alert('please enter a description for your project');
+    if(this.state.projectphoto === "") {
+        alert('please enter a photo for your project');
     }
+    if(this.state.projectdescription === "") {
+      alert('please enter a description for your project');
+  }
     
   }
 
@@ -55,7 +58,7 @@ export class ProjectCreator extends React.Component {
     return (
       <form>
         <div className="container-sm border border-secondary">
-          <h1>Create a new Project for user: {this.props.userID}</h1> <br></br>
+          <h1>Create a new Project:</h1> <br></br>
           <div id="username" className="mb-3">
             <label htmlFor="userName">Project Name:</label><br></br>
             <input
@@ -68,7 +71,17 @@ export class ProjectCreator extends React.Component {
           />
           </div>
           <div className="row align-items-center mb-3">
-          <div id="category" className="col-sm">
+            <div id="budget" className="col-sm-2">
+             <label htmlFor="budget">Budget:</label><br></br>
+              <input
+                type="number"
+                className="form-control"
+                name="budget"
+                id="budget"
+                onChange={(myEvent) => this.setState({ projectbudget: myEvent.target.value })}
+              />
+            </div>
+            <div id="category" className="col-sm">
              <label htmlFor="budget">Project Type:</label><br></br>
              <select className="form-select form-select-sm"
                       aria-label=".form-select-sm example"
@@ -79,14 +92,14 @@ export class ProjectCreator extends React.Component {
                 <option value="Repairs">Repairs</option>
              </select>
             </div>
-            <div id="budget" className="col-sm-10">
-             <label htmlFor="budget">Budget:</label><br></br>
+            <div id="photo" className="col-sm-8">
+             <label htmlFor="photo">Photo URL:</label><br></br>
               <input
-                type="number"
+                type="text"
                 className="form-control"
-                name="budget"
-                id="budget"
-                onChange={(myEvent) => this.setState({ projectbudget: myEvent.target.value })}
+                name="photo"
+                id="photo"
+                onChange={(myEvent) => this.setState({ projectphoto: myEvent.target.value })}
               />
             </div>
           </div>

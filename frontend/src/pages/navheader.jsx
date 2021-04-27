@@ -16,10 +16,10 @@ function NavHeader(props) {
                         <div className="row mt-3 ml-3">
                             <div id="projects" className="btn-group-vertical pb-4 mr-4">
                                 <Link type="button" className="h5 text-white" to="/">Projects</Link>
-                                <Link type="button" className="pt-1 text-light" to="/">All Projects</Link>
+                                <Link type="button" className="pt-1 text-light" to="/allProjects">All Projects</Link>
                                 {props.status && <div>
-                                <Link type="button" className="pt-1 text-light d-block" to="/myprojects">My Projects</Link>
-                                <Link type="button" className="pt-1 text-light d-block" to="/createProject">Create Project</Link>
+                                <Link type="button" className="pt-1 text-light d-block" to={'/myprojects/' + props.userID}>My Projects</Link>
+                                <Link type="button" className="pt-1 text-light d-block" to={'/createProject/' + props.userID}>Create Project</Link>
                                 </div> }
                             </div>
                             <div id="accounts" className="btn-group-vertical pb-4">

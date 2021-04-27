@@ -43,6 +43,7 @@ export class UserEditor extends React.Component {
                     <input type="text"
                         id="firstName"
                         name="firstName"
+                        placeholder="first name"
                         value={this.state.firstName}
                         onChange={ event => this.setState({ name: event.target.value }) }
                         className="form-control" />
@@ -130,6 +131,7 @@ export class UserEditor extends React.Component {
     }
 
     componentDidMount() {
+        console.log("component mounted");
         let id = +this.props.match.params.id;
         if (id) {
             this.userRepository.getUser(id)

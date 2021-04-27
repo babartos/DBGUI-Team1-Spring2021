@@ -884,7 +884,7 @@ app.post('/message/send', (req, res) => {
       }
       else {
         connection.query('SELECT postComment.*, user.userName FROM postComment INNER JOIN user on postComment.userID = user.userID WHERE postComment.projectID = ? ',
-          [req.params.postID],
+          [req.params.projectID],
           function (err, rows, fields) {
             connection.release();
             if (err) {

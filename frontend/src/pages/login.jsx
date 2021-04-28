@@ -29,6 +29,9 @@ export class Login extends React.Component {
       .catch( e => {
         console.log(e);
         alert("Error");
+      })
+      .finally(() => {
+        alert("Login Successful, Welcome back " + this.state.username + "!");
       });
     }
   }

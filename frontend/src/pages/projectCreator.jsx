@@ -22,36 +22,44 @@ export class ProjectCreator extends React.Component {
   }
 
   creatProject(){
-    this.errorChecking()
-    let projectData = {
-      userID: this.state.userID,
-      projectName: this.state.projectName,
-      budget: this.state.projectbudget,
-      description: this.state.projectdescription,
-      category: this.state.projectcategory,
-      photo: this.state.projectphoto,
-      active: 1
-    }
-    this.projectRepo.createProject(projectData);
-    this.setState({postCreatedSuccess: true});
+    if(this.errorChecking()){
+      let projectData = {
+        userID: this.state.userID,
+        projectName: this.state.projectName,
+        budget: this.state.projectbudget,
+        description: this.state.projectdescription,
+        category: this.state.projectcategory,
+        photo: this.state.projectphoto,
+        active: 1
+      }
+      this.projectRepo.createProject(projectData);
+      alert("Project Posted.")
+      this.setState({postCreatedSuccess: true});
+    } 
   }
 
   errorChecking() {
     if(this.state.projectName === "") {
         alert('please enter a name for your project');
+        return false
     }
     if(this.state.projectbudget === "") {
         alert('please enter a budget for your project');
+        return false
     }
     if(this.state.projectcategory === "") {
         alert('please enter a category for your project');
+        return false
     }
     if(this.state.projectphoto === "") {
         alert('please enter a photo for your project');
+        return false
     }
     if(this.state.projectdescription === "") {
       alert('please enter a description for your project');
-  }
+      return false
+    }
+    return true
     
   }
 

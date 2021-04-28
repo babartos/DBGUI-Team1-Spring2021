@@ -35,6 +35,7 @@ export class ProjectEditor extends React.Component {
       active: 1
     }
     this.projectRepo.updateProject(projectData);
+    alert("Project Updates Saved.")
     this.setState({postCreatedSuccess: true});
   }
 

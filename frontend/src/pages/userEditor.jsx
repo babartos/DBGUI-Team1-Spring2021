@@ -1,5 +1,5 @@
 import React from 'react';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link,useParams } from 'react-router-dom';
 import { UserRepository } from '../api/userRepository';
 
 export class UserEditor extends React.Component {
@@ -43,8 +43,9 @@ export class UserEditor extends React.Component {
                     <input type="text"
                         id="firstName"
                         name="firstName"
+                        placeholder= {this.state.firstName}
                         value={this.state.firstName}
-                        onChange={ event => this.setState({ name: event.target.value }) }
+                        onChange={ event => this.setState({ firstName: event.target.value }) }
                         className="form-control" />
                 </div>
 
@@ -53,8 +54,9 @@ export class UserEditor extends React.Component {
                     <input type="text"
                         id="lastName"
                         name="lastName"
-                        value={this.state.firstName}
-                        onChange={ event => this.setState({ name: event.target.value }) }
+                        value={this.state.lastName}
+                        placeholder= {this.state.lastName}
+                        onChange={ event => this.setState({ lastName: event.target.value }) }
                         className="form-control" />
                 </div>
 
@@ -63,8 +65,9 @@ export class UserEditor extends React.Component {
                     <input type="text"
                         id="userName"
                         name="userName"
-                        value={this.state.id}
-                        onChange={ event => this.setState({ id: event.target.value }) }
+                        value={this.state.userName}
+                        placeholder= {this.state.userName}
+                        onChange={ event => this.setState({ userName: event.target.value }) }
                         className="form-control" />
                 </div>
 
@@ -72,9 +75,10 @@ export class UserEditor extends React.Component {
                     <label htmlFor="password">Password</label>
                     <input type="text"
                         id="password"
-                        name="passwod"
+                        name="password"
                         value={this.state.password}
-                        onChange={ event => this.setState({ id: event.target.value }) }
+                        placeholder= {this.state.password}
+                        onChange={ event => this.setState({ password: event.target.value }) }
                         className="form-control" />
                 </div>
 
@@ -84,27 +88,20 @@ export class UserEditor extends React.Component {
                         id="email"
                         name="email"
                         value={this.state.email}
+                        placeholder= {this.state.email}
                         onChange={ event => this.setState({ email: event.target.value }) }
                         className="form-control" />
                 </div>
-
-                <div className="form-group">
-                    <label htmlFor="id">ID</label>
-                    <input type="text"
-                        id="idNumber"
-                        name="id"
-                        value={this.state.id}
-                        onChange={ event => this.setState({ id: event.target.value }) }
-                        className="form-control" />
-                </div>
-
+            
+                
                 <div className="form-group">
                     <label htmlFor="type">Type</label>
                     <input type="text"
                         id="type"
                         name="type"
                         value={this.state.type}
-                        onChange={ event => this.setState({ id: event.target.value }) }
+                        placeholder= {this.state.type}
+                        onChange={ event => this.setState({ type: event.target.value }) }
                         className="form-control" />
                 </div>
 
@@ -114,7 +111,8 @@ export class UserEditor extends React.Component {
                         id="aboutMe"
                         name="aboutMe"
                         value={this.state.aboutMe}
-                        onChange={ event => this.setState({ id: event.target.value }) }
+                        placeholder= {this.state.aboutMe}
+                        onChange={ event => this.setState({ aboutMe: event.target.value }) }
                         className="form-control" />
                 </div>
 
@@ -130,10 +128,14 @@ export class UserEditor extends React.Component {
     }
 
     componentDidMount() {
-        let id = +this.props.match.params.id;
+      
+        console.log("component mounted");
+        let id = this.props.match.params.id;
+        
         if (id) {
             this.userRepository.getUser(id)
-            .then(user => this.setState(user));
+            .then(user => {this.setState(user.data[0])});
         }
+
     }
 }

@@ -18,7 +18,8 @@ export const AllProjectList = props => {
 
   useEffect(() => {
     if (!projects) {
-      setID(props.id)
+      console.log(props.id);
+      setID(props.id);
         projectRepo.getAllProjects().then(x => {
           console.log("X:" + x.data)
           setProjects(x);
@@ -49,7 +50,7 @@ export const AllProjectList = props => {
             projects.map(project =>
                         <div className="card mb-3" key={project.projectID}>
                             <h2>{project.projectName}</h2>
-                            <img src={project.photo} className="w-50"></img>
+                            <img src="https://i.pinimg.com/originals/a8/28/5e/a8285e3abdec766d7df375f3a007de28.jpg" className="w-50"></img>
                             <p className="text-muted ">{project.category}</p>
                             <p>{project.description}</p>
                             <Comment myprojectID={project.projectID} />

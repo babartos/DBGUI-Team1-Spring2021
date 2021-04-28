@@ -58,7 +58,7 @@ export class App extends React.Component {
               <Route exact path="/profilePage" render={() => <ProfilePage id={this.state.currentId}/>}/>
               <Route exact path="/allAccounts" component={AllAccounts}/>
               <Route exact path="/userdashboard/:userID" component={UserEditor}/>
-              <Route exact path="/deleteAccount" render={() => <DeleteAccount userID={this.state.currentId}/>}/>
+              <Route exact path="/deleteAccount" render={() => <DeleteAccount userID={this.state.currentId} logout={this.logoutFunction}/>}/>
               <Route path="/" component={Home}/>
               {console.log("main compontent:" , this.state)}
           </Switch>

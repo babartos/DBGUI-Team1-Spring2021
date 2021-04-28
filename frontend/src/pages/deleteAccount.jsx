@@ -4,6 +4,10 @@ import { AccountsRepo } from "../api/accountsRepo";
 
 
 export class DeleteAccount extends React.Component {
+  constructor(props) {
+    super(props);
+    console.log(props);
+}
   accountRepo = new AccountsRepo();
   
   state = {
@@ -14,11 +18,14 @@ export class DeleteAccount extends React.Component {
   };
 
   handleLogin = (event) => {
-    //event.preventDefault();
+    event.preventDefault();
     let error = this.errorChecking();
     if(!error) { //if no error
-      this.accountRepo.delete(this.state.userID, this.state.username, this.state.password).then(data => {
+      this.accountRepo.deleteAccounts(this.state.userID, this.state.username, this.state.password).then(data => {
         if(data) {
+          alert("Account deleted successfully");
+          this.props.logout();
+          this.setState({successfulLogin: true});
           console.log(data);
         }
         else {
@@ -74,7 +81,7 @@ export class DeleteAccount extends React.Component {
             onChange={(myEvent) => this.setState({ password: myEvent.target.value })}
           />
           <button
-            type="submit"
+            type="button"
             className="form-control btn btn-danger btn-rounded d-block h-3 col-8 ml-3 mt-3 col-4"
             onClick={ (event) => this.handleLogin(event)}
           >

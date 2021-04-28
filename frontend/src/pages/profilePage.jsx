@@ -27,7 +27,7 @@ export class ProfilePage extends React.Component {
                 <li><div className=""><span className="font-weight-bold">Email:</span> {this.state.account.email}</div></li>
                 <li><div className=""><span className="font-weight-bold">About Me:</span> {this.state.account.aboutMe}</div></li>
             </ul>
-            }            
+            }
             </div>
         </>
         )

@@ -4,7 +4,7 @@ import { AccountsRepo } from "../api/accountsRepo";
 
 export class Signup extends React.Component {
     accountRepo = new AccountsRepo();
-    accountTypes = ['Average Joe','Professional','Admin'];
+    accountTypes = ['Average Joe','Professional'];
 
     state = {
       userName: "",
@@ -25,6 +25,7 @@ export class Signup extends React.Component {
         if(! error) {
             this.accountRepo.registerAccount(this.state).then(data => {
                 console.log(data);
+                alert("Account Registered!");
                 this.setState({successSignUp: true});
               })
               .catch( e => {

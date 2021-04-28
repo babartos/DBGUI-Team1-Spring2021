@@ -2,7 +2,7 @@ import axios from 'axios';
 
 export class AccountsRepo {
 
-    // url = "http://localhost:8000";
+    //url = "http://localhost:8000";
     url = "http://18.216.125.210:8000";   //put URL here
 
     config = {
@@ -43,9 +43,10 @@ export class AccountsRepo {
         });
     }
 
-    deleteAccount(id){
+    deleteAccounts(id, userName, password){
+        console.log(id, " ", userName, " ", password);
         return new Promise((resolve, reject) => {
-            axios.delete(`${this.url}/users/${id}`, this.config)
+            axios.delete(`${this.url}/users/${id}`,  {userName: userName, password: password}, this.config)
             .then(x => resolve(x.data))
             .catch(error => {
                 console.log("error");
@@ -86,23 +87,5 @@ export class AccountsRepo {
                 });
         });
     }
-
-    deleteAccount(id, username, password){
-        return new Promise((resolve, reject) => {
-            axios.delete(`${this.url}/users/${id}`,  {
-                "userName": username,
-                "password": password
-            }, this.config)
-            .then(x => resolve(x.data))
-            .catch(error => {
-                console.log("error");
-                console.log(error);
-            });
-        });
-    }
-
-
-
-
     
 }

@@ -2,7 +2,8 @@ import axios from 'axios';
 
 export class CommentsRepo {
 
-    url = "http://localhost:8000";   //put URL here
+    // url = "http://localhost:8000";
+    url = "http://18.216.125.210:8000";   //put URL here
 
     config = {
         headers: {

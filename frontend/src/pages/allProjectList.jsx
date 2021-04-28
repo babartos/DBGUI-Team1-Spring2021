@@ -4,7 +4,7 @@ import { ProjectCreator } from './projectCreator';
 import { Link, Redirect } from 'react-router-dom';
 import { ProjectRepo } from './../api/projectRepo';
 import { Comment } from './comment';
-import { CreateComment } from './createComment';
+import { Ratings } from './ratings';
 
 export const AllProjectList = props => {
 
@@ -39,7 +39,7 @@ export const AllProjectList = props => {
   }
 
   if (error || !Array.isArray(projects)) {
-    return <p>There was an error loading your data!</p>;
+    return <p>Data is loading...</p>;
   }
 
  
@@ -48,13 +48,25 @@ export const AllProjectList = props => {
           <h1>All Projects:</h1>
           {
             projects.map(project =>
-                        <div className="card mb-3" key={project.projectID}>
-                            <h2>{project.projectName}</h2>
-                            <img src="https://i.pinimg.com/originals/a8/28/5e/a8285e3abdec766d7df375f3a007de28.jpg" className="w-50"></img>
-                            <p className="text-muted ">{project.category}</p>
-                            <p>{project.description}</p>
-                            <Comment myprojectID={project.projectID} />
-                            {userID /* if logged in*/ && <CreateComment passedID={userID} myprojectID={project.projectID}/> }
+                        <div className="card p-4 mb-5" key={project.projectID}>
+                          <div className=" border-dark p-2">
+                            <div className="bg-light">
+                               <h2>{project.projectName} with a budget of ~${project.budget}</h2>
+                                <p className="text-muted ">Category: {project.category}</p>
+                                <p>{project.description}</p>
+                            </div>
+                          </div>
+                          <div className="d-flex  flex-row" style={{backgroundColor: "#eaeef2"}}>
+                            <div className="p-2">
+                              <Ratings projectID={project.projectID} />
+                            </div>
+                            <div className="p-2">
+                              <img src={project.photo} className="w-75"></img>
+                            </div>
+                            <div className="p-44 w-75">
+                              <Comment projectUser={project.userID} myprojectID={project.projectID} userID={userID}/>
+                            </div>
+                          </div>  
                         </div>
             )
         }

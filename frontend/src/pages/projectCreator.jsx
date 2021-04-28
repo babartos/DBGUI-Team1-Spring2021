@@ -22,6 +22,7 @@ export class ProjectCreator extends React.Component {
   }
 
   creatProject(){
+    this.errorChecking()
     let projectData = {
       userID: this.state.userID,
       projectName: this.state.projectName,

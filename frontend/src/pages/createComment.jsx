@@ -2,25 +2,31 @@ import React from "react";
 import { CommentsRepo } from "../api/commentsRepo";
 import { UserRepository } from "../api/userRepository";
 import { Link, Redirect } from 'react-router-dom';
+import { AccountsRepo } from './../api/accountsRepo';
 
 export class CreateComment extends React.Component {
     constructor(props) {
         super(props);
     }
     commentRepo = new CommentsRepo();
+    accountRepo = new AccountsRepo();
 
     state = {
-        commentContent: ""
-        
+        commentContent: "",
+        user: "",
+        loading: true
     }
 
-    handleComment = (event) => {
+    componentDidMount(){
+        this.accountRepo.getUser(this.props.passedID).then(obj => {
+            this.setState({user: obj.data[0]})
+            this.setState({loading: false})
+        });
+    }
+
+    onAddComment(){
         const myUserID = this.props.passedID;
         const myProjectID = this.props.myprojectID;
-        console.log(this.state);
-        console.log(myUserID);
-        console.log(myProjectID);
-
         this.commentRepo.createComment(myProjectID, myUserID, this.state.commentContent).then(data => {
             console.log(data);
             alert("Comment posted!");
@@ -29,9 +35,21 @@ export class CreateComment extends React.Component {
             console.log(e);
             alert("Invalid data");
           });
+
+        this.props.onAddComment({
+            userName: this.state.user.userName,
+            content: this.state.commentContent,
+            userID: myUserID
+        })
+        this.setState({commentContent: ""})
     }
 
+    
+
     render() {
+        if(this.state.loading){
+            return <h2>Data is loading..</h2>
+        }
         return (
             <>
                 <form>
@@ -43,7 +61,7 @@ export class CreateComment extends React.Component {
                 </div>
                 <div className="form-group row">
                     <div className="col-sm-10">
-                        <button type="button" className="btn btn-primary" onClick={(event) => this.handleComment(event)}>Post Comment</button>
+                        <button type="reset" className="btn btn-primary" onClick={() => this.onAddComment()}>Post Comment</button>
                     </div>
                 </div>
                 </form>

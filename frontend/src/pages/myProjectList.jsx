@@ -3,6 +3,7 @@ import { Project } from './models/Project';
 import { ProjectCreator } from './projectCreator';
 import { Link, Redirect } from 'react-router-dom';
 import { ProjectRepo } from './../api/projectRepo';
+import { Comment } from './comment';
 
 export const MyProjectList = props => {
 
@@ -74,6 +75,7 @@ let onProjectDelete = (projectID) => {
                                   }}>Edit</Link>
                                   <button className="btn btn-danger" onClick={() => onProjectDelete(project.projectID)}>Delete</button>
                               </div>
+                              <Comment projectUser={userID} myprojectID={project.projectID} userID={userID}/>
                             </div>
                         </div>
             )

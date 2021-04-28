@@ -4,7 +4,7 @@ import { ProjectCreator } from './projectCreator';
 import { Link, Redirect } from 'react-router-dom';
 import { ProjectRepo } from './../api/projectRepo';
 import { Comment } from './comment';
-import { CreateComment } from './createComment';
+import { Ratings } from './ratings';
 
 export const AllProjectList = props => {
 
@@ -49,12 +49,28 @@ export const AllProjectList = props => {
           {
             projects.map(project =>
                         <div className="card mb-3" key={project.projectID}>
-                            <h2>{project.projectName}</h2>
-                            <img src="https://i.pinimg.com/originals/a8/28/5e/a8285e3abdec766d7df375f3a007de28.jpg" className="w-50"></img>
-                            <p className="text-muted ">{project.category}</p>
-                            <p>{project.description}</p>
-                            <Comment myprojectID={project.projectID} />
-                            {userID /* if logged in*/ && <CreateComment passedID={userID} myprojectID={project.projectID}/> }
+                          <div>
+                            <div>
+                               <h2>{project.projectName}</h2>
+                                <p className="text-muted ">{project.category}</p>
+                                <p>{project.description}</p>
+                            </div>
+                          </div>
+                          <div className="row">
+                            <div className="col">
+                              <Ratings projectID={project.projectID} />
+                            </div>
+                            <div className="col">
+                              <img src={project.photo} className="w-50"></img>
+                            </div>
+                            <div className="col">
+                            <Comment projectUser={project.userID} myprojectID={project.projectID} userID={userID}/>
+                            </div>
+                          </div>  
+                            
+                            
+                            
+
                         </div>
             )
         }

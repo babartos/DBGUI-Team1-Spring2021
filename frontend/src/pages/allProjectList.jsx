@@ -48,29 +48,25 @@ export const AllProjectList = props => {
           <h1>All Projects:</h1>
           {
             projects.map(project =>
-                        <div className="card mb-3" key={project.projectID}>
-                          <div>
-                            <div>
-                               <h2>{project.projectName}</h2>
-                                <p className="text-muted ">{project.category}</p>
+                        <div className="card p-4 mb-5" key={project.projectID}>
+                          <div className=" border-dark p-2">
+                            <div className="bg-light">
+                               <h2>{project.projectName} with a budget of ~${project.budget}</h2>
+                                <p className="text-muted ">Category: {project.category}</p>
                                 <p>{project.description}</p>
                             </div>
                           </div>
-                          <div className="row">
-                            <div className="col">
+                          <div className="d-flex  flex-row" style={{backgroundColor: "#eaeef2"}}>
+                            <div className="p-2">
                               <Ratings projectID={project.projectID} />
                             </div>
-                            <div className="col">
-                              <img src={project.photo} className="w-50"></img>
+                            <div className="p-2">
+                              <img src={project.photo} className="w-75"></img>
                             </div>
-                            <div className="col">
-                            <Comment projectUser={project.userID} myprojectID={project.projectID} userID={userID}/>
+                            <div className="p-44 w-75">
+                              <Comment projectUser={project.userID} myprojectID={project.projectID} userID={userID}/>
                             </div>
                           </div>  
-                            
-                            
-                            
-
                         </div>
             )
         }

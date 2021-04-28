@@ -50,12 +50,11 @@ export class Ratings extends React.Component {
 
   render() {
     return (
-      <div>
-          <h3>Ratings</h3>
-          <p> {this.state.likes}</p>
-          <button type="button" onClick={() => this.incrementLikes()}><img src="https://img.icons8.com/material-sharp/24/000000/thumb-up.png"/></button>
-          <p>{this.state.dislikes}</p>
-          <button type="button" onClick={() => this.incrementDislikes()}><img src="https://img.icons8.com/material/24/000000/thumbs-down--v1.png"/></button>
+      <div className="p-2">
+          <b>{this.state.likes} Upvotes</b>
+          <a type="button" className="p-2 m-2" onClick={() => this.incrementLikes()}><img src="https://img.icons8.com/material-sharp/24/000000/thumb-up.png"/></a><br></br>
+          <a type="button" className="p-2 m-2" onClick={() => this.incrementDislikes()}><img src="https://img.icons8.com/material/24/000000/thumbs-down--v1.png"/></a><br></br>
+          <b className="p-2">{this.state.dislikes} Downvotes</b>
       </div>
     );
   }

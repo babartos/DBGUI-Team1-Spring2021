@@ -22,21 +22,28 @@ export class Comment extends React.Component {
     render() {
         return (
             <>
-                {this.state.comments && this.state.comments.length == 0 && <p> No comments </p>}
-                {this.state.comments && this.state.comments.length != 0 && <p> Comments: </p> }
-                {this.state.comments && this.state.comments.length != 0 && <ul>
-                    {this.state.comments.map((x, i) => <li className="" key={ i }> 
-                    {
-                        this.props.projectUser==x.userID && <span className="font-weight-bold">{x.userName}: </span>
+                <div className="w-200">
+                    {this.state.comments && this.state.comments.length == 0 && <h3> No comments </h3>}
+                    {this.state.comments && this.state.comments.length != 0 && <h3> Comments: </h3> }
+                    {this.state.comments && this.state.comments.length != 0 && <ul>
+                    <table className="w-300">
+                        {this.state.comments.map((x, i) => <tr className="p-4" key={ i }> 
+                        
+                            {
+                            this.props.projectUser==x.userID && <span className="font-weight-bold">{x.userName}: </span>
+                            }
+                            {
+                                this.props.projectUser!=x.userID &&<span className="text-muted">{x.userName}: </span> 
+                            } 
+                            <span>{x.content}</span>
+                    
+                        </tr>)}  
+                    </table>                
+                    </ul>
                     }
-                    {
-                        this.props.projectUser!=x.userID &&<span>{x.userName}: </span>
-                    } 
-                    <span>{x.content}</span>
-                    </li>)}                 
-                 </ul>
-                }
-                {this.props.userID /* if logged in*/ && <CreateComment onAddComment = { comment => this.addComment(comment)} passedID={this.props.userID} myprojectID={this.props.myprojectID}/> }
+                    {this.props.userID /* if logged in*/ && <CreateComment onAddComment = { comment => this.addComment(comment)} passedID={this.props.userID} myprojectID={this.props.myprojectID}/> }
+                </div>
+                
             </>
         );
     }

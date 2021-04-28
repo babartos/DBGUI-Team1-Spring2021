@@ -86,6 +86,21 @@ export class AccountsRepo {
         });
     }
 
+    deleteAccount(id, username, password){
+        return new Promise((resolve, reject) => {
+            axios.delete(`${this.url}/users/${id}`,  {
+                "userName": username,
+                "password": password
+            }, this.config)
+            .then(x => resolve(x.data))
+            .catch(error => {
+                console.log("error");
+                console.log(error);
+            });
+        });
+    }
+
+
 
 
     

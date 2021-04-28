@@ -43,7 +43,7 @@ export class App extends React.Component {
       <Router>
           <NavHeader status={this.state.loggedIn} userID={this.state.currentId} logout={this.logoutFunction}/>
           <Switch>
-              <Route exact path="/login" render={() => <Login loginFunction={this.logger}/>}/>
+            <Route exact path="/login" render={() => <Login loginFunction={this.logger}/>}/>
               <Route exact path="/signup" component={Signup}/>
               <Route exact path="/account" component={Home}/>
               <Route exact path="/mail"> <Mail username={this.state.currentUsername}/> </Route>

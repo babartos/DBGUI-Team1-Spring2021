@@ -11,7 +11,7 @@ const routes = require('./routes');
 const config = {
   name: 'sample-express-app',
   port: 8000,
-  host: '18.216.125.210',
+  host: '0.0.0.0',
 };
 
 // create the express.js object

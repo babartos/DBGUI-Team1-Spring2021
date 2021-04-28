@@ -64,6 +64,41 @@ export class AccountsRepo {
         });
     }
 
+    getAllAccounts(){
+        return new Promise((resolve, reject) => {
+            axios.get(`${this.url}/users`, this.config)
+            .then(x => resolve(x.data))
+            .catch(error => {
+                console.log("error");
+                console.log(error);
+            });
+        });
+    }
+
+    getUser(id) {
+        return new Promise((resolve, reject) => {
+            axios.get(`${this.url}/users/${id}`, this.config)
+                .then(x => resolve(x.data))
+                .catch(error => {
+                    alert(error);
+                    reject(error);
+                });
+        });
+    }
+
+    deleteAccount(id, username, password){
+        return new Promise((resolve, reject) => {
+            axios.delete(`${this.url}/users/${id}`,  {
+                "userName": username,
+                "password": password
+            }, this.config)
+            .then(x => resolve(x.data))
+            .catch(error => {
+                console.log("error");
+                console.log(error);
+            });
+        });
+    }
 
 
 

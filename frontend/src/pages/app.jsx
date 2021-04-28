@@ -11,6 +11,11 @@ import { ProjectCreator } from './projectCreator';
 import { UserEditor } from './userEditor';
 import { MailSend } from './mailSend';
 import { AllProjectList } from './allProjectList';
+import { ProjectEditor } from './projectEditor';
+import { AllAccounts } from './allAccounts';
+import { ProfilePage } from './profilePage';
+import { DeleteAccount } from './deleteAccount';
+
 
 export class App extends React.Component {
   constructor(props) {
@@ -46,12 +51,16 @@ export class App extends React.Component {
               <Route exact path="/mail"> <Mail username={this.state.currentUsername}/> </Route>
               <Route exact path="/sendmail" render={() => <MailSend username={this.state.currentUsername} id={this.state.currentId}/>}/>
               <Route exact path="/proffesionalAccounts" component={ProAccounts}/>
-              <Route exact path="/profile/:id" render={(props) => <UserEditor {...props}/>}/>
+              <Route exact path="/profile/:id" render={() => <UserEditor id={this.state.currentId}/>}/>
               <Route exact path="/myprojects/:userID" component={MyProjectList}/>
               <Route exact path="/createProject/:userID" component={ProjectCreator}/>
+              <Route exact path="/editProject/:userID/:projectID" component={ProjectEditor}/>
               <Route exact path="/allProjects" render={() => <AllProjectList id={this.state.currentId}/>}/>
-              <Route exact path="/allProjects" component={AllProjectList}/>
-              <Route path="/" component={Home}/>
+              <Route exact path="/profilePage" render={() => <ProfilePage id={this.state.currentId}/>}/>
+              <Route exact path="/allAccounts" component={AllAccounts}/>
+              <Route exact path="/userdashboard/:userID" component={UserEditor}/>
+              <Route exact path="/deleteAccount" component={UserEditor}/>
+              <Route path="/" render={() => <DeleteAccount userID={this.state.currentId}/>}/>
               {console.log("main compontent:" , this.state)}
           </Switch>
       </Router>

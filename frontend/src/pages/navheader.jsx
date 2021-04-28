@@ -23,11 +23,11 @@ function NavHeader(props) {
                                 </div> }
                             </div>
                             <div id="accounts" className="btn-group-vertical pb-4">
-                                <Link type="button" className="h5 text-white" to="/">Accounts</Link>
+                                <Link type="button" className="h5 text-white" to="/allAccounts">Accounts</Link>
                                 <Link type="button" className="pt-1 text-light" to="/proffesionalAccounts">Pro Accounts</Link>
                                 {props.status && <div>
-                                <Link type="button" className="pt-1 text-light d-block" to={'/profile/' + props.userID}>My Account</Link>
-                                <Link type="button" className="pt-1 text-light d-block" to="/">Search Accounts</Link>
+                                <Link type="button" className="pt-1 text-light d-block" to="/allAccounts">All Accounts</Link>
+                                <Link type="button" className="pt-1 text-light d-block" to="/profilePage">My Account</Link>
                                 </div>
                                 }
                             </div>
@@ -60,7 +60,7 @@ function NavHeader(props) {
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="white" className="bi bi-envelope" viewBox="0 0 16 16"><path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2zm13 2.383-4.758 2.855L15 11.114v-5.73zm-.034 6.878L9.271 8.82 8 9.583 6.728 8.82l-5.694 3.44A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.739zM1 11.114l4.758-2.876L1 5.383v5.73z"/>
                             </svg>
                         </Link>
-                        <Link type="button" className="btn btn-dark" to="/">
+                        <Link type="button" className="btn btn-dark" to="/profilePage">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="white" className="bi bi-person" viewBox="0 0 16 16"><path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
                             </svg>
                         </Link>

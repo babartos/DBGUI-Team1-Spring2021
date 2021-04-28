@@ -2,7 +2,7 @@ import axios from 'axios';
 
 export class UserRepository {
 
-    url = '18.216.125.210:8000';
+    url = 'http://18.216.125.210:8000';
 
     config = {
         headers: {

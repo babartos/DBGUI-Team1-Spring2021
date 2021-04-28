@@ -38,7 +38,7 @@ export const AllProjectList = props => {
   }
 
   if (error || !Array.isArray(projects)) {
-    return <p>There was an error loading your data!</p>;
+    return <p>Data is loading...</p>;
   }
 
  

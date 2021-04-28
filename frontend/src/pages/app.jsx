@@ -46,7 +46,7 @@ export class App extends React.Component {
               <Route exact path="/mail"> <Mail username={this.state.currentUsername}/> </Route>
               <Route exact path="/sendmail" render={() => <MailSend username={this.state.currentUsername} id={this.state.currentId}/>}/>
               <Route exact path="/proffesionalAccounts" component={ProAccounts}/>
-              <Route exact path="/profile" render={() => <UserEditor id={this.state.currentId}/>}/>
+              <Route exact path="/profile/:id" render={() => <UserEditor id={this.state.currentId}/>}/>
               <Route exact path="/myprojects/:userID" component={MyProjectList}/>
               <Route exact path="/createProject/:userID" component={ProjectCreator}/>
               <Route exact path="/allProjects" render={() => <AllProjectList id={this.state.currentId}/>}/>

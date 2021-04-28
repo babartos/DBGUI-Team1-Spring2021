@@ -69,4 +69,24 @@ export class ProjectRepo {
         });
     }
     
+    updateProject(project){
+        return new Promise((resolve, reject) => {
+            axios.put(`${this.url}/project/edit`, {
+                "projectID": project.projectID, 
+                "userID": project.userID, 
+                "projectName": project.projectName, 
+                "budget": project.budget, 
+                "description": project.description,
+                "active": project.active, 
+                "category": project.category, 
+                "photo": project.photo 
+            }, this.config)
+                .then(x => resolve(x.data))
+                .catch(error => {
+                    alert(error);
+                    reject(error);
+                });
+        });
+    }
+
 }

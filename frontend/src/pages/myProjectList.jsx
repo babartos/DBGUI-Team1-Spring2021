@@ -59,22 +59,31 @@ let onProjectDelete = (projectID) => {
                 <Link type="button" to={'/createProject/' + userID} className="btn btn-primary mb-3">Create new Post</Link>
           {
             projects.map(project =>
-                        <div className="card mb-3 row" key={project.projectID}>
-                            <div className="col">
-                              <img src={project.photo} className="w-50"></img>
-                            </div>
-                            <div className="col">
-                              <h2>{project.projectName}</h2>
-                              <p className="text-muted ">{project.category}</p>
-                              <p>{project.description}</p>
-                              <p>${project.budget}</p>
+                        <div className="card mb-3" key={project.projectID}>
+                            <div style={{backgroundColor: "#e8ecef"}}>
                               <div className="">
-                                  <Link type="button" className="btn btn-secondary m-2" to={{
-                                    pathname: '/editProject/' + userID + "/" +  project.projectID, 
-                                    state: {project: project}
-                                  }}>Edit</Link>
-                                  <button className="btn btn-danger" onClick={() => onProjectDelete(project.projectID)}>Delete</button>
+                                    <Link type="button" className="btn btn-secondary m-2" to={{
+                                      pathname: '/editProject/' + userID + "/" +  project.projectID, 
+                                      state: {project: project}
+                                    }}>Edit</Link>
+                                    <button className="btn btn-danger" onClick={() => onProjectDelete(project.projectID)}>Delete</button>
+                                </div>
+                              <div className="">
+                                  <h2>Project Title: {project.projectName}</h2>
+                                  <p className="text-muted ">Category: {project.category}</p>
+                                  <p>Description: {project.description}</p>
+                                  <p>Your Budget: ${project.budget}</p>
+                                </div>
+                            </div>
+                            
+                            <div className="row">
+                              
+                              
+                              
+                              <div className="col">
+                                <img src={project.photo} className="w-50"></img>
                               </div>
+
                               <Comment projectUser={userID} myprojectID={project.projectID} userID={userID}/>
                             </div>
                         </div>

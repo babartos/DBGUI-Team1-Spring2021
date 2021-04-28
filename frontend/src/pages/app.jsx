@@ -14,6 +14,8 @@ import { AllProjectList } from './allProjectList';
 import { ProjectEditor } from './projectEditor';
 import { AllAccounts } from './allAccounts';
 import { ProfilePage } from './profilePage';
+import { DeleteAccount } from './deleteAccount';
+
 
 export class App extends React.Component {
   constructor(props) {
@@ -43,7 +45,7 @@ export class App extends React.Component {
       <Router>
           <NavHeader status={this.state.loggedIn} userID={this.state.currentId} logout={this.logoutFunction}/>
           <Switch>
-            <Route exact path="/login" render={() => <Login loginFunction={this.logger}/>}/>
+              <Route exact path="/login" render={() => <Login loginFunction={this.logger}/>}/>
               <Route exact path="/signup" component={Signup}/>
               <Route exact path="/account" component={Home}/>
               <Route exact path="/mail"> <Mail username={this.state.currentUsername}/> </Route>
@@ -57,7 +59,8 @@ export class App extends React.Component {
               <Route exact path="/profilePage" render={() => <ProfilePage id={this.state.currentId}/>}/>
               <Route exact path="/allAccounts" component={AllAccounts}/>
               <Route exact path="/userdashboard/:userID" component={UserEditor}/>
-              <Route path="/" component={Home}/>
+              <Route exact path="/deleteAccount" component={UserEditor}/>
+              <Route path="/" render={() => <DeleteAccount userID={this.state.currentId}/>}/>
               {console.log("main compontent:" , this.state)}
           </Switch>
       </Router>

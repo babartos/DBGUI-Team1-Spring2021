@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export class PostsRepo {
-    url = "18.216.125.210";   //put URL here
+    url = "18.216.125.210:8000";   //put URL here
 
     config = {
         headers: {

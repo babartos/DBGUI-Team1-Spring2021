@@ -26,7 +26,7 @@ function NavHeader(props) {
                                 <Link type="button" className="h5 text-white" to="/">Accounts</Link>
                                 <Link type="button" className="pt-1 text-light" to="/proffesionalAccounts">Pro Accounts</Link>
                                 {props.status && <div>
-                                <Link type="button" className="pt-1 text-light d-block" to="/profile">My Account</Link>
+                                <Link type="button" className="pt-1 text-light d-block" to={'/profile/' + props.userID}>My Account</Link>
                                 <Link type="button" className="pt-1 text-light d-block" to="/">Search Accounts</Link>
                                 </div>
                                 }

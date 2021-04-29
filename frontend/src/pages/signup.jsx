@@ -4,7 +4,7 @@ import { AccountsRepo } from "../api/accountsRepo";
 
 export class Signup extends React.Component {
     accountRepo = new AccountsRepo();
-    accountTypes = ['Average Joe','Professional','Admin'];
+    accountTypes = ['Average Joe','Professional'];
 
     state = {
       userName: "",

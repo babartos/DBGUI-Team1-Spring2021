@@ -21,6 +21,7 @@ export class Login extends React.Component {
           console.log(data);
           this.props.loginFunction(data, this.state.username);
           this.setState({successfulLogin: true});
+          alert("Login Successful, Welcome back " + this.state.username + "!");
         }
         else {
           alert("Incorrect Username/Password Combination");
@@ -29,9 +30,6 @@ export class Login extends React.Component {
       .catch( e => {
         console.log(e);
         alert("Error");
-      })
-      .finally(() => {
-        alert("Login Successful, Welcome back " + this.state.username + "!");
       });
     }
   }
